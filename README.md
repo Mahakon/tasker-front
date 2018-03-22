@@ -1,11 +1,16 @@
-# TFS FrontEnd
+# TFS Project
 
-## Начало
-    `cd front-end`
-    `npm install`
+## FrontEnd
 
-## Команды:
-    `npm run start` - dev сервер
-    `npm run build` - собираем проект
-    `npm run test`
-    `npm run lint`
+### Installation
+```
+    cd front-end
+    npm install
+```
+### Scripts:
+```
+    npm run start - dev сервер
+    npm run build - собираем проект
+    npm run test
+    npm run lint
+```
