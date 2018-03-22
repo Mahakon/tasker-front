@@ -16,6 +16,7 @@ const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"
 const baseHref = "";
 const projectRoot = process.cwd();
 const postcssPlugins = require('./postcssPlugins.js');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 
 module.exports = {
@@ -172,6 +173,11 @@ module.exports = {
     ]
   },
   "plugins": [
+    new UglifyJsPlugin({
+      test: /\.js($|\?)/i,
+      parallel: true,
+      sourceMap: true
+    }),
     new NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin([
       {
