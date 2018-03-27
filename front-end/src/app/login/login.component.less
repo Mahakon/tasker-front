@@ -1,0 +1,127 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed#.css);/* Reset.css
+---------------------------------------------------------------------------------- */
+html,
+body,
+div,
+h1,
+i,
+center,
+form,
+label,
+header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+/* /Reset.css
+---------------------------------------------------------------------------------- */
+body,
+input,
+button,
+textarea,
+h1 {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+}
+body {
+  background: linear-gradient(to top, #A1D9FE, #D5FEFA);
+  background-color: #A1D9FE;
+  background-repeat: no-repeat;
+}
+.sign-main-wrapper {
+  min-width: 400px;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px 10px;
+}
+.sign-main-container {
+  display: flex;
+  box-shadow: 0 0 40px #D6FFFB;
+}
+.main-container_right {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  width: 50%;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.main-container_right .sign-menu {
+  align-self: flex-end;
+  display: flex;
+}
+.main-container_right .sign-menu .sign-up-view .sign-up {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  margin: 0;
+  background: none;
+  border: none;
+  color: #434343;
+  padding: 6px;
+  cursor: pointer;
+}
+.main-container_right .sign-menu .sign-in-view .sign-in {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin: 0;
+  background: none;
+  color: #B2BFCB;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+}
+.sign-form_view .sign-form_title {
+  text-align: center;
+  padding-bottom: 20px;
+}
+.sign-form_view .sign-form_title h1 {
+  color: #E4E7EB;
+}
+.sign-form_view .sign-form .user {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+}
+.sign-form_view .sign-form .user .__sign {
+  width: 200px;
+  margin-bottom: 20px;
+}
+.sign-form_view .sign-form .submit-view {
+  display: flex;
+  justify-content: flex-end;
+}
+.sign-form_view .sign-form .submit-view .cancel {
+  background: #E4E7EB;
+  margin-right: 5px;
+  color: #B2BFCB;
+}
+.sign-form_view .sign-form .submit-view .submit {
+  margin-left: 5px;
+}
+.main-container_left {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  float: left;
+  width: 50%;
+  background: #364256;
+}
+.main-container_left .bot-main {
+  margin: 50px 20px auto;
+  height: 30px;
+  text-align: center;
+}
+.main-container_left .bot-main h1 {
+  font-size: 20px;
+  color: white;
+}
+.__but {
+  background: #4C76B7;
+  border: 1px solid #E6E8E9;
+  color: #FFFFFF;
+  border-radius: 4px;
+  padding: 4px;
+  flex-grow: 0;
+}
