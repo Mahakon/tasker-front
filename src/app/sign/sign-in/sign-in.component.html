@@ -1,0 +1,34 @@
+<div class="sign-main-wrapper">
+  <div class="sign-main-container">
+    <div class="main-container_left">
+      <div class="bot-main">
+        <h1>Wellcome to BotTasker</h1>
+      </div>
+    </div>
+
+    <div class="main-container_right">
+      <div class="sign-menu">
+        <div class="sign-up-view">
+          <a routerLink="/sign-up" class="sign-up">Sign up</a>
+        </div>
+        <div class="sign-in-view">
+          <a routerLink="/sign-in" class="sign-in">Sign in</a>
+        </div>
+      </div>
+      <div class="sign-form_view">
+        <div class="sign-form_title">
+          <h1>SIGN IN</h1>
+        </div>
+        <form class="sign-form _in" name="sign-in_form">
+          <input name="login" class="user-login __sign" placeholder="login">
+          <input name="password" class="user-password __sign" placeholder="password">
+          </form>
+        <div class="submit-view">
+          <button (click)="sendDataToServer()" class="submit __but">Enter</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
