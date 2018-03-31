@@ -18,10 +18,7 @@
  * BROWSER POLYFILLS
  */
 
-<<<<<<< HEAD
 import 'core-js/es6';
-=======
->>>>>>> 40ee39c... init
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
 // import 'core-js/es6/symbol';
 // import 'core-js/es6/object';

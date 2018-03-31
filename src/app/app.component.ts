@@ -5,10 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-<<<<<<< HEAD
 
-=======
->>>>>>> 40ee39c... init
 export class AppComponent {
-  title = 'TFS Project';
 }

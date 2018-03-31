@@ -120,10 +120,6 @@
     "directive-selector": [
       true,
       "attribute",
-<<<<<<< HEAD
-=======
-      "app",
->>>>>>> 40ee39c... init
       "camelCase"
     ],
     "component-selector": [

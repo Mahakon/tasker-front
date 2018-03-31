@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "reset.css";
+
+body, input, button, textarea, h1 {
+  font-size: 20px;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  background-color: #C1F0FA;
+  background-image: linear-gradient(to top left, #84C5FF, #C1F0FA, #D7FFFC);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-attachment: fixed;
+}

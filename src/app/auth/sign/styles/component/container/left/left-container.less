@@ -1,0 +1,34 @@
+@import "../../../config/globals";
+
+@media all and (orientation: portrait) {
+  .left-container {
+    display: none;
+  }
+}
+
+.left-container {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  width: 50%;
+  background: @left-container-color;
+  padding: 26px;
+
+  .bot {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+
+    .bot-title {
+      text-align: center;
+      h1 {
+        font-size: @header-text-size;
+        color: @left-container-text-color;
+      }
+    }
+
+    .__location {
+      margin-top: 20px;
+      align-self: center;
+    }
+  }
+}

@@ -1,0 +1,60 @@
+@import "../../../config/globals";
+
+@media all and (orientation: portrait) {
+  .right-container {
+    width: 100%;
+    border-radius: 6px;
+  }
+}
+
+@media all and (orientation: landscape) {
+  .right-container {
+    width: 50%;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+}
+
+.right-container {
+  background: @right-container-color;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  .sign-menu {
+    align-self: flex-end;
+    display: flex;
+
+    .sign-in-view {
+      padding: 6px;
+
+      .sign-in {
+        margin: 0;
+        color: @unselected-link-color;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: @link-text-size;
+      }
+
+      .__selected {
+        color: @selected-link-color;
+      }
+    }
+
+    .sign-up-view {
+      padding: 6px;
+
+      .sign-up {
+        margin: 0;
+        color: @unselected-link-color;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: @link-text-size;
+      }
+
+      .__selected {
+        color: @selected-link-color;
+      }
+    }
+  }
+}

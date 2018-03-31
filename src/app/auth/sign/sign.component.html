@@ -1,0 +1,50 @@
+<div class="main-wrapper">
+  <div class="main-container">
+    <div class="left-container">
+      <div class="bot">
+        <div class="bot-title">
+          <h1>Wellcome to BotTasker</h1>
+        </div>
+        <div class="animated-bot __location __moving-antenns __moving-pupil">
+          <div class="bot-head">
+            <div class="bot-eye"></div>
+            <div class="bot-mouth"></div>
+            <div class="bot-left-ear">
+              <div class="antenna-left"></div>
+            </div>
+            <div class="bot-right-ear">
+              <div class="antenna-right"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-container">
+      <div class="sign-menu">
+        <div class="sign-in-view">
+          <a routerLink="/sign-in"
+             [ngClass]="{
+              'sign-in': true,
+              '__selected': isSignIn
+             }">
+            Sign in
+          </a>
+        </div>
+        <div class="sign-up-view">
+          <a routerLink="/sign-up"
+             [ngClass]="{
+              'sign-up': true,
+              '__selected': !isSignIn
+              }">
+            Sign up
+          </a>
+        </div>
+      </div>
+      <div class="sign-form">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+  </div>
+</div>
