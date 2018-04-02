@@ -23,7 +23,7 @@
     <div class="right-container">
       <div class="sign-menu">
         <div class="sign-in-view">
-          <a routerLink="/sign-in"
+          <a routerLink="/auth/sign-in"
              [ngClass]="{
               'sign-in': true,
               '__selected': isSignIn
@@ -32,7 +32,7 @@
           </a>
         </div>
         <div class="sign-up-view">
-          <a routerLink="/sign-up"
+          <a routerLink="/auth/sign-up"
              [ngClass]="{
               'sign-up': true,
               '__selected': !isSignIn

@@ -13,6 +13,7 @@ export class SignComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isSignIn = true;
     this.changeColorOfSelectedLink();
   }
 
@@ -21,10 +22,10 @@ export class SignComponent implements OnInit {
       .subscribe(
         event => {
           if (event instanceof NavigationEnd) {
-            if (event.url === '/sign-in') {
+            if (event.url === '/auth/sign-in') {
               this.isSignIn = true;
             } else {
-              if (event.url === '/sign-up') {
+              if (event.url === '/auth/sign-up') {
                 this.isSignIn = false;
               }
             }

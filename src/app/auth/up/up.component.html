@@ -1,1 +1,15 @@
-<h1>sign up</h1>
+<div class="main-container-up">
+  <div class="form-title-up">
+    <h1>SIGN UP</h1>
+  </div>
+  <form class="form-up" name="sign-up_form">
+    <input name="login" class="user-login __sign" placeholder="login">
+    <input name="email" class="user-email __sign" placeholder="email">
+    <input name="password" class="user-password __sign" placeholder="password">
+    <input name="confirm-password" class="user-password_confirm __sign" placeholder="confirm password">
+  </form>
+  <div class="submit-view">
+    <button class="cancel __but">Cancel</button>
+    <button (click)="sendDataToServer()" class="submit __but">Submit</button>
+  </div>
+</div>

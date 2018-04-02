@@ -1,0 +1,35 @@
+@import "../../config/globals";
+
+.main-container-in {
+  display: flex;
+  flex-direction: column;
+  .form-title-in {
+    margin: 8px;
+    text-align: center;
+    h1 {
+      color: @selected-link-color;
+      font-size: 20px;
+    }
+  }
+  .form-in {
+    display: flex;
+    flex-direction: column;
+    .__sign {
+      margin: 4px;
+      border: 1px solid @unselected-link-color;
+      border-radius: 4px;
+      background: none;
+      width: 80%;
+      align-self: center;
+    }
+    .__sign::placeholder {
+      font-size: 16px;
+    }
+  }
+  .submit-view {
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+}
