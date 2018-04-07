@@ -1,30 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { SignInComponent } from './sign/sign-in/sign-in.component';
+import { SignComponent } from './auth/sign/sign.component';
+import { InComponent } from './auth/in/in.component';
+import { UpComponent } from './auth/up/up.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UserComponent } from './cabinet/user/user.component';
-import { UserService } from './user.service';
-import {HttpClientModule} from '@angular/common/http';
-import {SignUpComponent} from './sign/sign-up/sign-up.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { UserService } from './services/user.service';
+import { SignInService } from './services/sign-in.service';
+import {CabinetComponent} from './cabinet/cabinet.component';
+import {ButtonMenuComponent} from './cabinet/components/button-menu/button-menu.component';
+import {CabinetGuard} from './cabinet/cabinet.guard';
+import {InGuard} from './auth/in/in.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
+    SignComponent,
+    InComponent,
+    UpComponent,
+    CabinetComponent,
     UserComponent,
-    SignUpComponent,
+    ButtonMenuComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule,
+    HttpClientModule
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    SignInService,
+    CabinetGuard,
+    InGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

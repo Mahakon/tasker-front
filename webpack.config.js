@@ -16,7 +16,8 @@ const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"
 const baseHref = "";
 const projectRoot = process.cwd();
 const postcssPlugins = require('./postcssPlugins.js');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const randomInt = require('random-int');
 
 
 module.exports = {
@@ -49,9 +50,9 @@ module.exports = {
     ]
   },
   "output": {
-    "path": path.resolve(__dirname, 'dist'),
-    "filename": "[name].bundle.js",
-    "chunkFilename": "[id].chunk.js",
+    "path": path.join(process.cwd(), "dist"),
+    "filename": "[name].bundle" + randomInt(10, 100) + ".js",
+    "chunkFilename": "[id].chunk" + randomInt(10, 100) + ".js",
     "crossOriginLoading": false
   },
   "module": {

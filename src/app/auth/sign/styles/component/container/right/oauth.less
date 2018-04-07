@@ -1,0 +1,43 @@
+@import "../../../config/globals";
+
+.oauth {
+  display: flex;
+  flex-direction: column;
+  padding: 26px 10px 10px;
+  .oauth-title {
+    text-align: center;
+    h1 {
+      font-size: 20px;
+      color: #434343;
+    }
+  }
+
+  .oauth-container {
+    display: flex;
+    justify-content: center;
+
+    .oauth-vk {
+      margin: 6px;
+      cursor: pointer;
+      .vk-img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 40px;
+        height: 40px;
+        background-image: url("../../../../images/vk-icon.png");
+      }
+    }
+
+    .oauth-bitbucket {
+      margin: 6px;
+      cursor: pointer;
+      .bitbucket-img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 40px;
+        height: 40px;
+        background-image: url("../../../../images/Bitbucket-icon.png");
+      }
+    }
+  }
+}
