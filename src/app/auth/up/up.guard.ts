@@ -5,7 +5,7 @@ import {SignInService} from '../../services/sign-in.service';
 import {UserService} from '../../services/user.service';
 
 @Injectable()
-export class InGuard implements CanActivate {
+export class UpGuard implements CanActivate {
 
   constructor(
     private router: Router,

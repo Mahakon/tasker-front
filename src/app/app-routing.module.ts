@@ -7,6 +7,8 @@ import { SignComponent } from './auth/sign/sign.component';
 import {CabinetComponent} from './cabinet/cabinet.component';
 import {CabinetGuard} from './cabinet/cabinet.guard';
 import {InGuard} from './auth/in/in.guard';
+import {UpGuard} from './auth/up/up.guard';
+import {CabinetResolver} from './cabinet/cabinet.resolver';
 
 const routes: Routes = [
   {
@@ -14,7 +16,7 @@ const routes: Routes = [
     component: SignComponent,
     children: [
       { path: 'sign-in', component: InComponent, canActivate: [InGuard] },
-      { path: 'sign-up', component: UpComponent },
+      { path: 'sign-up', component: UpComponent, canActivate: [UpGuard] },
       { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
     ]
   },
@@ -22,6 +24,7 @@ const routes: Routes = [
     path: 'cabinet',
     component: CabinetComponent,
     canActivate: [CabinetGuard],
+    resolve: { user: CabinetResolver },
     children: [
       {path: 'user', component: UserComponent}
     ]

@@ -19,6 +19,10 @@ export class UserService {
     return this.http.get<UserData>(url);
   }
 
+  turnOffLoadingAnimation() {
+    document.getElementById('loaderBot').style.display = 'none';
+  }
+
   logOut(): Observable<any> {
     const url = host + `session/delete`;
     return this.http.get<any>(url);

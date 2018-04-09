@@ -1,4 +1,4 @@
-<div id="main">
+<div id="main" style="min-height: 100vh;">
     <div class="cabinet">
         <div class="header">
             <div class="logo" routerLink="/cabinet/" routerLinkActive="active">
@@ -20,7 +20,7 @@
         </div>
         <div class="content">
             <div class="menu" [class.active]="open_menu">
-                <app-button-menu-component [data] = "button" *ngFor="let button of menu"></app-button-menu-component>            
+                <app-button-menu-component [data] = "button" *ngFor="let button of menu"></app-button-menu-component>
             </div>
             <div class="work-area">
                 <router-outlet></router-outlet>

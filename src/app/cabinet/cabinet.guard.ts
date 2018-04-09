@@ -17,6 +17,10 @@ export class CabinetGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
+    if (this.userService.userId !== undefined) {
+      return true;
+    }
+
     return this.isValidSession();
   }
 
@@ -25,8 +29,11 @@ export class CabinetGuard implements CanActivate {
       this.signInService.isAuthUser()
         .subscribe(result => {
           console.log(result);
+          this.signInService.firstTime = false;
+
           if (result.id !== -1) {
             this.userService.userId = result.id;
+            this.signInService.firstTime = true;
             resolve(true);
           } else {
             this.router.navigateByUrl('/auth/sign-in');

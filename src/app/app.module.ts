@@ -15,6 +15,8 @@ import {CabinetComponent} from './cabinet/cabinet.component';
 import {ButtonMenuComponent} from './cabinet/components/button-menu/button-menu.component';
 import {CabinetGuard} from './cabinet/cabinet.guard';
 import {InGuard} from './auth/in/in.guard';
+import {UpGuard} from './auth/up/up.guard';
+import {CabinetResolver} from './cabinet/cabinet.resolver';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {InGuard} from './auth/in/in.guard';
     UserService,
     SignInService,
     CabinetGuard,
-    InGuard
+    InGuard,
+    UpGuard,
+    CabinetResolver
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignInService } from '../services/sign-in.service';
-import { UserService } from '../services/user.service';
+import {UserData, UserService} from '../services/user.service';
 import { host } from '../config';
 
 @Component({
@@ -20,12 +20,19 @@ export class CabinetComponent implements OnInit {
         {title: 'TITLE4', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'},
         {title: 'TITLE5', url: '/cabinet/stats/', ico: '<i class="fas fa-chart-pie"></i>'}
     ];
+
+  get user(): UserData {
+    return this.route.snapshot.data.user;
+  }
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private userService: UserService
       ) {}
-    ngOnInit() {}
+    ngOnInit() {
+    this.userService.turnOffLoadingAnimation();
+    }
 
     goToSignIn() {
         this.router.navigate(

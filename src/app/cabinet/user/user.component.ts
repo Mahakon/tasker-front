@@ -9,7 +9,6 @@ import { host } from '../../config';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  @Input() user: UserData;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -17,14 +16,5 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   this.getUserLogin();
-  }
-
-  getUserLogin(): void {
-    console.log(this.userService.userId);
-    this.userService.getUserData(this.userService.userId)
-      .subscribe(
-        user => this.user = user,
-        err => { console.log(err); });
   }
 }
