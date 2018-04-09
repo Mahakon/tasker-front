@@ -11,6 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
 import { SignInService } from './services/sign-in.service';
+import {CabinetComponent} from './cabinet/cabinet.component';
+import {ButtonMenuComponent} from './cabinet/components/button-menu/button-menu.component';
+import {CabinetGuard} from './cabinet/cabinet.guard';
+import {InGuard} from './auth/in/in.guard';
+import {UpGuard} from './auth/up/up.guard';
+import {CabinetResolver} from './cabinet/cabinet.resolver';
 
 @NgModule({
   declarations: [
@@ -18,7 +24,9 @@ import { SignInService } from './services/sign-in.service';
     SignComponent,
     InComponent,
     UpComponent,
-    UserComponent
+    CabinetComponent,
+    UserComponent,
+    ButtonMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +36,11 @@ import { SignInService } from './services/sign-in.service';
   ],
   providers: [
     UserService,
-    SignInService
+    SignInService,
+    CabinetGuard,
+    InGuard,
+    UpGuard,
+    CabinetResolver
   ],
   bootstrap: [AppComponent]
 })

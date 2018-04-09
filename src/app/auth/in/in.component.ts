@@ -15,63 +15,43 @@ export class InComponent implements OnInit {
     private signInService: SignInService
   ) { }
 
-  ngOnInit() {
-    this.isValidSession()
-      .then(
-        id => {
-          this.goToUserPage(id);
-        },
-        err => {
-          console.log(err);
-        }
-      );
-  }
+  ngOnInit() {}
 
-  private goToUserPage(id) {
+  private goToUserPage() {
     this.router.navigate(
-      ['/user/' + id.toString()],
+      ['/cabinet'],
       { relativeTo: this.route }
     );
-  }
-
-  isValidSession() {
-    return new Promise((resolve, reject) => {
-      this.signInService.isAuthUser()
-        .subscribe(result => {
-          if (result !== null) {
-            resolve(result.id);
-          }
-          reject(new Error('not authed user'));
-        });
-    });
   }
 
   sendDataToServer() {
     const formEl = document.forms.namedItem('sign-in_form');
     const data = new FormData(formEl);
     const url = host + 'auth/sign-in';
-    const options = {
-      method: 'POST',
-      body: data
-    };
-    fetch(url, options)
-      .then(
-        res => res.json(),
-        err => err
-      )
-      .then(
+
+    this.signInService.autherize(url, data)
+      .subscribe(
         body => {
           console.log(body.id);
-          this.goToUserPage(body.id);
+          this.signInService.setSession(body.id)
+            .subscribe(
+              value => {
+              console.log(value);
+              this.goToUserPage();
+              },
+              err => {
+                console.log(err);
+              }
+            );
         },
         err => console.log(err)
       );
+
     Array.prototype.forEach.call(
       document.getElementsByClassName('__sign'),
       (el) => {
         el.value = '';
-      }
-    );
+      });
   }
 }
 

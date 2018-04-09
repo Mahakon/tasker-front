@@ -1,0 +1,30 @@
+<div id="main" style="min-height: 100vh;">
+    <div class="cabinet">
+        <div class="header">
+            <div class="logo" routerLink="/cabinet/" routerLinkActive="active">
+                    <i class="fab fa-buromobelexperte"></i>
+            </div>
+            <div class="header__title"><h2>Projects</h2></div>
+            <div class="header__user-cabinet">
+                <div class="user-cabinet__avatar">
+                        <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-cabinet__name">{{user.login}}</div>
+            </div>
+            <div class="header__menu--mobile" (click)="click_on_menu()" [class.active]="open_menu">
+                    <i class="fas fa-ellipsis-v"></i>
+            </div>
+            <div class="header__logout" (click)="logOut()">
+                    <i class="fas fa-sign-out-alt"></i>
+            </div>
+        </div>
+        <div class="content">
+            <div class="menu" [class.active]="open_menu">
+                <app-button-menu-component [data] = "button" *ngFor="let button of menu"></app-button-menu-component>
+            </div>
+            <div class="work-area">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

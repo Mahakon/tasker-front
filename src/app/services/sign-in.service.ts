@@ -1,17 +1,34 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {host} from '../config';
+import {host, login, mode, password} from '../config';
 import {Observable} from 'rxjs/Observable';
-import {UserIdData} from '../auth/in/UserIdData';
+
+export interface UserIdData {
+  id: number;
+}
 
 @Injectable()
 export class SignInService {
 
   constructor(private http: HttpClient) { }
-  private signInUrl = host + 'auth/sign-in';
+  private signInUrl = host + `auth/sign-in?mode=${mode}&login=${login}&password=${password}`;
+  firstTime = true;
 
   isAuthUser(): Observable<UserIdData> {
     const url = this.signInUrl;
+    return this.http.get<UserIdData>(url);
+  }
+
+  turnOffLoadingAnimation() {
+    document.getElementById('loaderBot').style.display = 'none';
+  }
+
+  autherize(url: string, data: FormData): Observable<UserIdData> {
+    return this.http.post<UserIdData>(url, data);
+  }
+
+  setSession(id): Observable<UserIdData> {
+    const url = host + `session/set?id=${id}`;
     return this.http.get<UserIdData>(url);
   }
 }
