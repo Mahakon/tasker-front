@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 
 export interface UserData {
   login: string;
+  name: string;
+  surname: string;
 }
 
 @Injectable()
@@ -21,6 +23,15 @@ export class UserService {
 
   turnOffLoadingAnimation() {
     document.getElementById('loaderBot').style.display = 'none';
+  }
+
+  postUserData(user :any): Observable<any>  {
+    const formData: FormData = new FormData();
+    formData.append('name', user.name);
+    formData.append('login', user.login);
+    formData.append('surname', user.surname);
+    const url = host + `user/${this.userId}/update/`;
+    return this.http.post<any>(url, formData);
   }
 
   logOut(): Observable<any> {

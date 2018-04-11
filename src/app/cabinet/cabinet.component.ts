@@ -22,6 +22,7 @@ export class CabinetComponent implements OnInit {
     ];
 
   get user(): UserData {
+  //  console.log('user',this.route.snapshot.data.user);
     return this.route.snapshot.data.user;
   }
 

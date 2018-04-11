@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignInService } from '../../services/sign-in.service';
 import { host } from '../../config';
+import { NgForm, FormGroup, FormControl,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-in',
@@ -23,7 +24,7 @@ export class InComponent implements OnInit {
       { relativeTo: this.route }
     );
   }
-
+  public login = '';
   sendDataToServer() {
     const formEl = document.forms.namedItem('sign-in_form');
     const data = new FormData(formEl);

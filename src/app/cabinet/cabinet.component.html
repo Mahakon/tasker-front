@@ -20,7 +20,7 @@
         </div>
         <div class="content">
             <div class="menu" [class.active]="open_menu">
-                <app-button-menu-component [data] = "button" *ngFor="let button of menu"></app-button-menu-component>
+                <app-button-menu-component [ngClass]="'menu-button'" [data] = "button" *ngFor="let button of menu"></app-button-menu-component>
             </div>
             <div class="work-area">
                 <router-outlet></router-outlet>
