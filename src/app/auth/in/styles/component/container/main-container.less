@@ -14,17 +14,71 @@
   .form-in {
     display: flex;
     flex-direction: column;
+    * {
+      box-sizing:  border-box;
+    }
+    .input_group{
+      position: relative;
+    }
     .__sign {
       padding: 5px 10px;
-      margin: 4px;
       border: 1px solid @unselected-link-color;
       border-radius: 4px;
       background: none;
-      width: 80%;
+      width: 100%;
       align-self: center;
     }
     .__sign::placeholder {
       font-size: 16px;
+    }
+    .indicator{
+      line-height: 28px;
+      position: absolute;
+      margin: 0;
+      right: 4px;
+      top: 8.5px;
+    }
+    .error{
+      font-size: 14px;
+      flex-wrap: wrap;
+      > div{
+        width: 100%;
+      }
+
+      padding: 5px;
+      background-color: rgba(255,0,0,.15);
+      border-radius: 1px;
+      margin-top: 5px;
+      color: #000;
+      width: 100%;
+    }
+    input{
+      position: relative;
+      padding: 5px 20px 5px 5px !important;
+      border-radius: 1px;
+      border: 1px solid #000;
+      outline:none;
+      margin: 5px 0;
+      &.validation_show.ng-dirty{
+        &.ng-valid{
+          border-color: #25803a;
+          & + .indicator{
+            &::after {
+              content: '\2714';
+              color: #25803a;
+            }
+          }
+        }
+        &.ng-invalid{
+          border-color: rgba(255,0,0,0.9);
+          & + .indicator{
+            &::after {
+              content: '\2716';
+              color: rgba(255,0,0,0.9);
+            }
+          }
+        }
+      }
     }
   }
   .submit-view {
@@ -34,3 +88,4 @@
   }
 
 }
+

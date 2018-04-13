@@ -2,12 +2,20 @@
   <h3>Настройки</h3>
 
     <div class="form-group avatar-form">
+
       <div class="user__avatar">
           <img *ngIf = "avatar_src" id="avatar" [src] = "host + '../' + avatar_src"/>
           <i *ngIf = "!avatar_src" class="fas fa-user"></i>
       </div>
-      <input type="button" (click)="removeAvatar()" value="Удалить">
-      <input type="file" class="form-control" (change)="handleFileInput($event.target.files)" value="Загрузить">
+
+      <div class="avatar-form__buttons">
+        <label for="file">
+          <input type="file" class="form-control" class="button" id="file" (change)="handleFileInput($event.target.files)" value="Загрузить">
+          <div>Загрузить</div>
+        </label>
+        <input type="button" *ngIf = "avatar_src" (click)="removeAvatar()" class="button button_delete" value="Удалить">
+      </div>
+
     </div>
 
     <div class="user__header">Личные данные</div>

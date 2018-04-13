@@ -1,7 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignInService } from '../services/sign-in.service';
-import {UserData, UserService} from '../services/user.service';
+import { UserData, UserService } from '../services/user.service';
 import { host } from '../config';
 
 @Component({
@@ -11,6 +11,7 @@ import { host } from '../config';
 })
 export class CabinetComponent implements OnInit {
     private id: number;
+    private host_name: string;
     private open_menu = false;
     private exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
     private menu: any = [
@@ -22,7 +23,7 @@ export class CabinetComponent implements OnInit {
     ];
 
   get user(): UserData {
-  //  console.log('user',this.route.snapshot.data.user);
+    // console.log('user', this.route.snapshot.data.user);
     return this.route.snapshot.data.user;
   }
 
@@ -33,6 +34,7 @@ export class CabinetComponent implements OnInit {
       ) {}
     ngOnInit() {
     this.userService.turnOffLoadingAnimation();
+    this.host_name = host;
     }
 
     goToSignIn() {

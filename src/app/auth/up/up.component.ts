@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { host } from '../../config';
 import {SignInService} from '../../services/sign-in.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from '../../components/validators';
 
 @Component({
   selector: 'app-up',
@@ -9,14 +11,25 @@ import {SignInService} from '../../services/sign-in.service';
   styleUrls: ['./styles/default.less']
 })
 export class UpComponent implements OnInit {
-
+  form: FormGroup;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private signInService: SignInService
+    private signInService: SignInService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.form = this.createForm();
+  }
+
+  private createForm() {
+    return this.fb.group({
+      login: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6), CustomValidators.checkEquallyStringReverse]]
+    });
   }
 
   private goToUserPage() {
