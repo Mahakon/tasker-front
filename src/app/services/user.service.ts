@@ -7,6 +7,7 @@ export interface UserData {
   login: string;
   name: string;
   surname: string;
+  avatar?: string;
 }
 
 @Injectable()
@@ -24,8 +25,30 @@ export class UserService {
   turnOffLoadingAnimation() {
     document.getElementById('loaderBot').style.display = 'none';
   }
+  /* Удаляем аватарку */
+  delAvatar(): Observable<any> {
+    const url = host + `user/${this.userId}/delAvatar/`;
+    return this.http
+      .delete<any>(url);
+  }
+  /* Отправляем аватарку */
+  postAvatar(fileToUpload: File): Observable<any> {
+    const url = host + `user/${this.userId}/updateAvatar/`;
+    const formData: FormData = new FormData();
+    formData.append('avatar', fileToUpload, fileToUpload.name);
+    return this.http
+      .post<any>(url, formData);
+  }
+  /* Отправляем запрос на изменение пароля */
+  postPasswordData(data: any): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('old_password', data.old_password);
+    formData.append('password', data.password);
+    const url = host + `user/${this.userId}/updatePassword/`;
+    return this.http.post<any>(url, formData);
+  }
 
-  postUserData(user :any): Observable<any>  {
+  postUserData(user: any): Observable<any>  {
     const formData: FormData = new FormData();
     formData.append('name', user.name);
     formData.append('login', user.login);
