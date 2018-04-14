@@ -25,6 +25,13 @@ export class UserService {
   turnOffLoadingAnimation() {
     document.getElementById('loaderBot').style.display = 'none';
   }
+
+  checkEmailOrLoginService(name, value): Observable<any> {
+    const url = host + `user/data/check/`; // http://localhost:3000/api/user/data/check/?name=email&value=mah
+    return this.http
+      .post<any>(url, {name: name, value: value});
+  }
+
   /* Удаляем аватарку */
   delAvatar(): Observable<any> {
     const url = host + `user/${this.userId}/delAvatar/`;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserData, UserService } from '../../services/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { CustomValidators } from '../../components/validators';
 import {host} from '../../config';
 
@@ -59,6 +59,17 @@ export class UserComponent implements OnInit {
     // user.avatar = host + '../' + user.avatar;
     return Object.assign(user, this.route.parent.snapshot.data.user);
   }
+  private checkLoginService(control: AbstractControl) {
+    return new Promise(resolve => {
+      this.userService.checkEmailOrLoginService('login', control.value).subscribe(a => {
+        console.log(control);
+        if (a.result && control.value !== this.user.login) {
+          resolve({isUsed: 'Логин занят'});
+        }
+        resolve(null);
+      });
+    });
+  }
 
   private createFormPassword() {
     return this.FB.group({
@@ -84,7 +95,10 @@ export class UserComponent implements OnInit {
       login: [this.user.login, [
         Validators.required,
         Validators.minLength(3)
-      ]],
+      ], [
+        this.checkLoginService.bind(this)
+      ]
+      ],
       name: [this.user.name],
       surname: [this.user.surname]
     });

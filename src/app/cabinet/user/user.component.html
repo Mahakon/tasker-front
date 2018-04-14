@@ -42,6 +42,9 @@
             <div *ngIf="users_data.get('login').errors.minlength">
               Поле логин должно содержать минимум 3 символа
             </div>
+            <div *ngIf="users_data.get('login').errors.isUsed">
+              Логин занят
+            </div>
           </div>
 
       </div>

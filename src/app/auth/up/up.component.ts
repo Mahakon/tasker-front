@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { host } from '../../config';
 import {SignInService} from '../../services/sign-in.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { CustomValidators } from '../../components/validators';
+import { UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-up',
@@ -16,17 +17,42 @@ export class UpComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private signInService: SignInService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.form = this.createForm();
   }
 
+  private checkLoginService(control: AbstractControl) {
+    return new Promise(resolve => {
+      this.userService.checkEmailOrLoginService('login', control.value).subscribe(a => {
+        if (a.result) {
+          resolve({isUsed: 'Логин занят'});
+        }
+        resolve(null);
+      });
+    });
+  }
+
+  private checkEmailService(control: AbstractControl) {
+    return new Promise(resolve => {
+      this.userService.checkEmailOrLoginService('email', control.value).subscribe(a => {
+        if (a.result) {
+          resolve({isUsed: 'Email занят'});
+        }
+        resolve(null);
+      });
+    });
+  }
+
   private createForm() {
     return this.fb.group({
-      login: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
+      login: ['', [Validators.required, Validators.minLength(3)], [
+        this.checkLoginService.bind(this)
+      ]],
+      email: ['', [Validators.required, Validators.minLength(3), Validators.email], [this.checkEmailService.bind(this)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6), CustomValidators.checkEquallyStringReverse]]
     });

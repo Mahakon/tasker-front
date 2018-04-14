@@ -16,6 +16,9 @@
       <div *ngIf="form.get('login').errors.minlength">
         Поле логин должно содержать минимум 3 символа
       </div>
+      <div *ngIf="form.get('login').errors.isUsed">
+        Логин занят
+      </div>
     </div>
 
     <div class="input_group">
@@ -25,9 +28,12 @@
 
     <div class="error" *ngIf="form.get('email').invalid &&
                                     (form.get('email').dirty)">
-   
+
       <div *ngIf="form.get('email').errors.email">
         E-mail не валиден
+      </div>
+      <div *ngIf="form.get('email').errors.isUsed">
+        Email занят
       </div>
     </div>
 
