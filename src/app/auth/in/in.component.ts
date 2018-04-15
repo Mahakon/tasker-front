@@ -4,7 +4,7 @@ import { SignInService } from '../../services/sign/sign-in.service';
 import { host } from '../../config';
 import { FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { UserService} from '../../services/user.service';
+import { UserService} from '../../services/cabinet/user/user.service';
 
 @Component({
   selector: 'app-in',

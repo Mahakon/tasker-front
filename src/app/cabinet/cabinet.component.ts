@@ -1,7 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SignInService } from '../services/sign-in.service';
-import { UserData, UserService } from '../services/user.service';
+import { SignInService } from '../services/sign/sign-in.service';
+import { UserData, UserService } from '../services/cabinet/user/user.service';
 import { host } from '../config';
 import {ProjectListService} from '../services/cabinet/projects/project-list.service';
 
