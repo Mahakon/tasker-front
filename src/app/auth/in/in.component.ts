@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SignInService } from '../../services/sign-in.service';
+import { SignInService } from '../../services/sign/sign-in.service';
 import { host } from '../../config';
 
 @Component({

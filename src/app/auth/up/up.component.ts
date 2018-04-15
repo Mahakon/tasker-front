@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { host } from '../../config';
-import {SignInService} from '../../services/sign-in.service';
+import {SignInService} from '../../services/sign/sign-in.service';
 
 @Component({
   selector: 'app-up',
