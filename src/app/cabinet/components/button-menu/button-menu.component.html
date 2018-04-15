@@ -1,4 +1,7 @@
-<div routerLink={{data.url}} routerLinkActive="active" class="menu__button">
+<div routerLink={{data.url}}
+     routerLinkActive="active"
+     class="menu__button"
+     [routerLinkActiveOptions]="{exact: false}">
     <span [innerHTML] = "data.ico"></span>
     <span class="title">{{data.title}}</span>
 </div>

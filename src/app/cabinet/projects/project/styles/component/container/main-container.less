@@ -1,0 +1,31 @@
+@import "../../config/globals";
+.randomColor();
+
+.project-container {
+  margin: 20px;
+  border-radius: 4px;
+  border-top: 3px solid @color;
+  border-left: 1px solid #CECFD0;
+  border-right: 1px solid #CECFD0;
+  border-bottom: 1px solid #CECFD0;
+  background: #FFFFFF;
+
+  width: 220px;
+  height: 80px;
+
+  cursor: pointer;
+  padding: 10px;
+
+  .project {
+    background: none;
+    border-radius: 4px;
+    border: 1px solid #CECFD0;
+    height: 74px;
+    padding: 6px 6px 0 6px;
+  }
+}
+
+.project-container:hover,
+.project-container:focus {
+  box-shadow: 0 0 4px #CECFD0;
+}

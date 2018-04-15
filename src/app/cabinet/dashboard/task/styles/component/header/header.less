@@ -1,0 +1,64 @@
+@import "../../config/globals";
+
+.task-header {
+  display: flex;
+  position: absolute;
+  right: 4%;
+  z-index: 1;
+  background: none;
+
+  .edit-task-view {
+    padding: 5px;
+    display: none;
+    opacity: 0.8;
+
+    .edit-task {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      height: 24px;
+      width: 24px;
+      border-radius: 20px;
+      z-index: 10;
+    }
+  }
+
+  .edit-task-view:hover > .edit-task,
+  .edit-task-view:focus > .edit-task {
+    background: @c-gray-light;
+    opacity: 1;
+  }
+
+  .delete-task-view {
+    padding: 5px;
+    display: none;
+    opacity: 0.8;
+
+    .delete-task {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      display: block;
+      height: 24px;
+      width: 24px;
+      border-radius: 20px;
+    }
+  }
+
+  .delete-task-view:hover > .delete-task,
+  .delete-task-view:focus > .delete-task {
+    background: @c-gray-light;
+    opacity: 1;
+  }
+}
+
+.task-wrapper:hover  > .task-header > .delete-task-view,
+.task-wrapper:focus  > .task-header > .delete-task-view,
+.task-wrapper:hover  > .task-header > .edit-task-view,
+.task-wrapper:focus  > .task-header > .edit-task-view {
+  display: block;
+}

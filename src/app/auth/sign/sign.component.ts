@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router} from '@angular/router';
 import { host } from '../../config';
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../services/cabinet/user/user.service';
 
 @Component({
   selector: 'app-sign',

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import {SignInService} from '../services/sign-in.service';
-import {UserService} from '../services/user.service';
+import {SignInService} from '../services/sign/sign-in.service';
+import {UserService} from '../services/cabinet/user/user.service';
 
 @Injectable()
 export class CabinetGuard implements CanActivate {

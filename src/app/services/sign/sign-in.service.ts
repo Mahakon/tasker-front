@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {host, login, mode, password} from '../config';
+import {host, login, mode, password} from '../../config';
 import {Observable} from 'rxjs/Observable';
 
 export interface UserIdData {

@@ -1,0 +1,31 @@
+<div class="task-wrapper" id="{{task.id}}">
+  <div class="task-header">
+    <div class="edit-task-view">
+      <button class="edit-task">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+    </div>
+    <div class="delete-task-view">
+      <button class="delete-task" (click)="onDelete()">
+        <i class="far fa-times-circle"></i>
+      </button>
+    </div>
+  </div>
+  <div class="task-cotainer">
+    <textarea (dblclick)="onEdit()"
+              [readonly]="!isEdit"
+              class="task-infa"
+              [(ngModel)]="task.discription"></textarea>
+  </div>
+  <div class="task-footer"
+       [class.__edit-task]="isEdit" >
+    <div class="add-task-view">
+      <button class="add-task" (click)="onAdd()">ADD</button>
+    </div>
+    <div class="close-task-view">
+      <button class="close-task" (click)="onClose()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</div>

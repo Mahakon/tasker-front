@@ -1,8 +1,9 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SignInService } from '../services/sign-in.service';
-import {UserData, UserService} from '../services/user.service';
+import { SignInService } from '../services/sign/sign-in.service';
+import {UserData, UserService} from '../services/cabinet/user/user.service';
 import { host } from '../config';
+import {ProjectListService} from '../services/cabinet/projects/project-list.service';
 
 @Component({
     selector: 'app-cabinet',
@@ -11,13 +12,13 @@ import { host } from '../config';
 })
 export class CabinetComponent implements OnInit {
     private id: number;
-    private open_menu = false;
+    open_menu = false;
     private exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
-    private menu: any = [
-        {title: 'TITLE1', url: '/cabinet/home/', ico: '<i class="fas fa-home"></i>'},
-        {title: 'TITLE2', url: '/cabinet/work/', ico: '<i class="fas fa-briefcase"></i>'},
-        {title: 'TITLE3', url: '/cabinet/dashboard/', ico: '<i class="fas fa-columns"></i>'},
-        {title: 'TITLE4', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'},
+    menu: any = [
+        {title: 'HOME', url: '/cabinet/home/', ico: '<i class="fas fa-home"></i>'},
+        {title: 'PROJECTS', url: '/cabinet/projects/', ico: '<i class="fas fa-briefcase"></i>'},
+        {title: 'DASHBOARD', url: `/cabinet/dashboard/underfined`, ico: '<i class="fas fa-columns"></i>'},
+        {title: 'USER', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'},
         {title: 'TITLE5', url: '/cabinet/stats/', ico: '<i class="fas fa-chart-pie"></i>'}
     ];
 
@@ -29,10 +30,13 @@ export class CabinetComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private userService: UserService
+        private userService: UserService,
+        private projectListService: ProjectListService
       ) {}
+
     ngOnInit() {
-    this.userService.turnOffLoadingAnimation();
+      this.userService.turnOffLoadingAnimation();
+      this.projectListService.listOfProjects = this.user.projects;
     }
 
     goToSignIn() {
@@ -47,6 +51,7 @@ export class CabinetComponent implements OnInit {
         .subscribe(
           value => {
             console.log(value);
+            this.userService.userId = undefined;
             this.goToSignIn();
           },
           err => console.log(err)
