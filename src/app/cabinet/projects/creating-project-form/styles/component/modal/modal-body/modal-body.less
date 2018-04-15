@@ -1,0 +1,31 @@
+.modal-body {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+  .__location {
+    margin: 10px auto auto;
+  }
+
+  .project-form {
+    display: flex;
+    flex-direction: column;
+    .__input {
+      margin: 4px;
+      border: 1px solid @c-gray-light;
+      border-radius: 4px;
+      background: none;
+      width: 80%;
+      align-self: center;
+    }
+    .__invalid {
+      border: 1px solid red;
+    }
+    .__input::placeholder {
+      font-size: 16px;
+    }
+  }
+}

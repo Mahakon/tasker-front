@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {SignInService} from '../../services/sign-in.service';
-import {UserService} from '../../services/user.service';
+import {SignInService} from '../../services/sign/sign-in.service';
+import {UserService} from '../../services/cabinet/user/user.service';
 
 @Injectable()
 export class InGuard implements CanActivate {
@@ -32,7 +32,7 @@ export class InGuard implements CanActivate {
     return new Promise<boolean>((resolve, reject) => {
       this.signInService.isAuthUser()
         .subscribe(result => {
-          console.log(result);
+          console.log('1', result);
           this.signInService.firstTime = false;
 
           if (result.id !== -1) {

@@ -2,11 +2,44 @@
   <div class="form-title-in">
     <h1>SIGN IN</h1>
   </div>
-  <form class="form-in" name="sign-in_form">
-    <input name="login" class="user-login __sign" placeholder="login">
-    <input name="password" class="user-password __sign" placeholder="password">
-  </form>
+  <form class="form-in" name="sign-in_form" [formGroup]="form" (submit)="sendDataToServer()">
+
+    <div class="input_group">
+      <input name="login" class="user-login __sign validation_show" placeholder="login" type="text"
+             formControlName="login">
+      <span class="indicator" *ngIf="form.get('login').dirty"></span>
+    </div>
+
+    <div class="error" *ngIf="form.get('login').invalid && form.get('login').dirty">
+      <div *ngIf="form.get('login').errors.required">
+        Поле логин обязательно
+      </div>
+      <div *ngIf="form.get('login').errors.minlength">
+        Поле логин должно содержать минимум 3 символа
+      </div>
+      <div *ngIf="form.get('login').errors.isUsed">
+        Логин занят
+      </div>
+    </div>
+
+    <div class="input_group">
+      <input name="password" class="user-password __sign validation_show" placeholder="password" type="password"
+             formControlName="password">
+      <span class="indicator" *ngIf="form.get('password').dirty"></span>
+    </div>
+
+    <div class="error" *ngIf="form.get('password').invalid &&
+                                    (form.get('password').dirty)">
+      <div *ngIf="form.get('password').errors.required">
+        Пароль обязателен
+      </div>
+      <div *ngIf="form.get('password').errors.minlength">
+        Пароль должен быть не короче 6ти символов
+      </div>
+    </div>
+
   <div class="submit-view">
-    <button (click)="sendDataToServer()" class="submit __but">Enter</button>
+    <button type="submit" class="submit __but" [disabled]="form.invalid">Enter</button>
   </div>
+</form>
 </div>

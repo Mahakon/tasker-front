@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SignInService } from '../../services/sign-in.service';
+import { SignInService } from '../../services/sign/sign-in.service';
 import { host } from '../../config';
+import { FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { UserService} from '../../services/cabinet/user/user.service';
 
 @Component({
   selector: 'app-in',
@@ -9,19 +12,45 @@ import { host } from '../../config';
   styleUrls: ['./styles/defaultIn.less']
 })
 export class InComponent implements OnInit {
+  form: FormGroup;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private signInService: SignInService
+    private signInService: SignInService,
+    private fb: FormBuilder,
+    private userService: UserService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.form = this.createForm();
+  }
+
+  private checkLoginService(control: AbstractControl) {
+    return new Promise(resolve => {
+      this.userService.checkEmailOrLoginService('login', control.value).subscribe(a => {
+        if (a.result) {
+          resolve({isUsed: 'Логин занят'});
+        }
+        resolve(null);
+      });
+    });
+  }
 
   private goToUserPage() {
     this.router.navigate(
       ['/cabinet'],
       { relativeTo: this.route }
     );
+  }
+  public login = '';
+
+  private createForm() {
+    return this.fb.group({
+      login: ['', [Validators.required, Validators.minLength(3)], [
+        this.checkLoginService.bind(this)
+      ]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
   sendDataToServer() {

@@ -1,0 +1,15 @@
+<div class="main-dashboard-wrapper">
+  <!--<div class="dashboard-header">
+    <div class="title">
+    </div>
+  </div>-->
+  <div class="main-dashboard-container">
+    <div class="task-dashboard-container">
+      <app-task-list *ngFor="let status of statusList"
+                     [status]="status"
+                     [taskList]="currentDashboardService.dashboardData[status]">
+
+      </app-task-list>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="main-list-wrapper" *ngIf="!isShowNewprojectForm">
+  <h1>Your Projects</h1>
+  <div class="list-container">
+    <app-project *ngFor="let project of list"
+                 [project]="project"
+                 (click)="goToSelectedDashboard(project)">
+    </app-project>
+    <app-project (click)="changeVisibality()" [project]="defaultProject"></app-project>
+  </div>
+</div>
+<app-creating-project-form (close)="changeVisibality()" (create)="addNewProject($event)" *ngIf="isShowNewprojectForm">
+</app-creating-project-form>
