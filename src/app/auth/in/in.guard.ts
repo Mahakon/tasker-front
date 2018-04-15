@@ -32,7 +32,7 @@ export class InGuard implements CanActivate {
     return new Promise<boolean>((resolve, reject) => {
       this.signInService.isAuthUser()
         .subscribe(result => {
-          console.log(result);
+          console.log('1', result);
           this.signInService.firstTime = false;
 
           if (result.id !== -1) {

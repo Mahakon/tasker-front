@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { SignComponent } from './auth/sign/sign.component';
 import { InComponent } from './auth/in/in.component';
@@ -51,7 +50,9 @@ import {CurrentDashboardResolver} from './cabinet/dashboard/current-dashboard/cu
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     UserService,

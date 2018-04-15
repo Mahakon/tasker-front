@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router} from '@angular/router';
 import { host } from '../../config';
+import {Validators} from "@angular/forms";
 import {UserService} from '../../services/cabinet/user/user.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class SignComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {}
+
 
   ngOnInit() {
     this.userService.turnOffLoadingAnimation();

@@ -1,3 +1,175 @@
 <div class="user">
-  <h1>Hello</h1>
+  <h3>Настройки</h3>
+
+    <div class="form-group avatar-form">
+
+      <div class="user__avatar">
+          <img *ngIf = "avatar_src" id="avatar" [src] = "host + '../' + avatar_src"/>
+          <i *ngIf = "!avatar_src" class="fas fa-user"></i>
+      </div>
+
+      <div class="avatar-form__buttons">
+        <label for="file">
+          <input type="file" class="form-control" class="button" id="file" (change)="handleFileInput($event.target.files)" value="Загрузить">
+          <div>Загрузить</div>
+        </label>
+        <input type="button" *ngIf = "avatar_src" (click)="removeAvatar()" class="button button_delete" value="Удалить">
+      </div>
+
+    </div>
+
+    <div class="user__header">Личные данные</div>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="users_data">
+
+      <div class="form-group">
+
+          <label for="login">Логин *</label>
+
+          <div>
+            <input type="text"
+                   class="form-control validation_show"
+                   id="login"
+                   placeholder="Логин"
+                   formControlName="login">
+            <span class="indicator" *ngIf="users_data.get('login').dirty"></span>
+          </div>
+
+          <div class="error" *ngIf="users_data.get('login').invalid">
+            <div *ngIf="users_data.get('login').errors.required">
+              Поле логин обязательно
+            </div>
+            <div *ngIf="users_data.get('login').errors.minlength">
+              Поле логин должно содержать минимум 3 символа
+            </div>
+            <div *ngIf="users_data.get('login').errors.isUsed">
+              Логин занят
+            </div>
+          </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="name">Имя</label>
+
+        <div>
+          <input type="text"
+                 class="form-control validation_show"
+                 id="name"
+                 placeholder="Имя"
+                 formControlName="name">
+          <span class="indicator" *ngIf="users_data.get('name').dirty"></span>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="surname">Фамилия</label>
+
+        <div>
+          <input type="text"
+                 class="form-control validation_show"
+                 id="surname"
+                 placeholder="Фамилия"
+                 formControlName="surname">
+          <span class="indicator" *ngIf="users_data.get('surname').dirty"></span>
+        </div>
+
+      </div>
+
+      <button type="submit"
+              class="btn btn-success"
+              *ngIf="users_data.valid && users_data.dirty"
+              [disabled]="!users_data.valid || !users_data.dirty || updated.users_data">{{ updated.users_data ? 'Обновлено' : 'Сохранить' }}</button>
+    </form>
+
+
+
+    <div class="user__header">Смена пароля</div>
+
+      <form (ngSubmit)="onSubmitPassword()" [formGroup]="password_form">
+        <div class="form-group">
+
+          <label for="old_password">Старый пароль</label>
+
+          <div>
+            <input type="password"
+                   class="form-control validation_show"
+                   id="old_password"
+                   formControlName="old_password">
+            <span class="indicator" *ngIf="password_form.get('old_password').dirty"></span>
+          </div>
+
+          <div class="error" *ngIf="password_form.get('old_password').invalid &&
+                                    (password_form.get('old_password').dirty)">
+            <div *ngIf="password_form.get('old_password').errors.required">
+              Старый пароль обязателен
+            </div>
+            <div *ngIf="password_form.get('old_password').errors.minlength">
+              Пароль должен быть не короче 6ти символов
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="password">Новый пароль</label>
+
+            <div>
+              <input type="password"
+                     class="form-control validation_show"
+                     id="password"
+                     formControlName="password">
+              <span class="indicator" *ngIf="password_form.get('password').dirty"></span>
+            </div>
+
+          <div class="error" *ngIf="password_form.get('password').invalid &&
+                                    (password_form.get('password').dirty)">
+            <div *ngIf="password_form.get('password').errors.required">
+              Пароль не может быть пустой
+            </div>
+            <div *ngIf="password_form.get('password').errors.minlength">
+              Новый пароль должен быть не короче 6ти символов
+            </div>
+            <div *ngIf="password_form.get('password').errors.equally">
+              {{ password_form.get('password').errors.equally }}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group" *ngIf="password_form.get('password').dirty && password_form.get('password').valid">
+
+            <label for="repeat_new_password">Еще раз</label>
+            <div>
+              <input type="password"
+                     class="form-control validation_show"
+                     id="repeat_new_password"
+                     formControlName="repeat_new_password">
+              <span class="indicator" *ngIf="password_form.get('repeat_new_password').dirty"></span>
+            </div>
+
+            <div class="error" *ngIf="password_form.get('repeat_new_password').invalid  &&
+                                    (password_form.get('repeat_new_password').dirty)">
+              <div *ngIf="password_form.get('repeat_new_password').errors.required">
+                Пароль не может быть пустой
+              </div>
+              <div *ngIf="password_form.get('repeat_new_password').errors.minlength">
+                Новый пароль должен быть не короче 6ти символов
+              </div>
+              <div *ngIf="password_form.get('repeat_new_password').errors.equally">
+                {{ password_form.get('repeat_new_password').errors.equally | json }}
+              </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" *ngIf="password_form.valid && password_form.dirty" [disabled]="!password_form.valid || !password_form.dirty || updated.password_form">{{ updated.password_form ? 'Обновлено' : 'Сохранить' }}</button>
+
+      </form>
+
+    <div class="user__header">Прочие настройки</div>
+
 </div>

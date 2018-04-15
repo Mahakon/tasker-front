@@ -1,7 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SignInService } from '../services/sign/sign-in.service';
-import {UserData, UserService} from '../services/cabinet/user/user.service';
+import { SignInService } from '../services/sign-in.service';
+import { UserData, UserService } from '../services/user.service';
 import { host } from '../config';
 import {ProjectListService} from '../services/cabinet/projects/project-list.service';
 
@@ -12,7 +12,8 @@ import {ProjectListService} from '../services/cabinet/projects/project-list.serv
 })
 export class CabinetComponent implements OnInit {
     private id: number;
-    open_menu = false;
+    private host_name: string;
+    private open_menu = false;
     private exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
     menu: any = [
         {title: 'HOME', url: '/cabinet/home/', ico: '<i class="fas fa-home"></i>'},
@@ -23,7 +24,7 @@ export class CabinetComponent implements OnInit {
     ];
 
   get user(): UserData {
-    console.log('hello');
+    // console.log('user', this.route.snapshot.data.user);
     return this.route.snapshot.data.user;
   }
 
@@ -35,8 +36,9 @@ export class CabinetComponent implements OnInit {
       ) {}
 
     ngOnInit() {
-      this.userService.turnOffLoadingAnimation();
-      this.projectListService.listOfProjects = this.user.projects;
+    this.userService.turnOffLoadingAnimation();
+    this.host_name = host;
+    this.projectListService.listOfProjects = this.user.projects;
     }
 
     goToSignIn() {

@@ -2,14 +2,78 @@
   <div class="form-title-up">
     <h1>SIGN UP</h1>
   </div>
-  <form class="form-up" name="sign-up_form">
-    <input name="login" class="user-login __sign" placeholder="login">
-    <input name="email" class="user-email __sign" placeholder="email">
-    <input name="password" class="user-password __sign" placeholder="password">
-    <input name="confirm-password" class="user-password_confirm __sign" placeholder="confirm password">
+  <form class="form-up" name="sign-up_form" [formGroup]="form" (submit)="sendDataToServer()">
+
+    <div class="input_group">
+      <input name="login" class="user-login __sign validation_show" placeholder="login" formControlName="login">
+      <span class="indicator" *ngIf="form.get('login').dirty"></span>
+    </div>
+
+    <div class="error" *ngIf="form.get('login').invalid && form.get('login').dirty">
+      <div *ngIf="form.get('login').errors.required">
+        Поле логин обязательно
+      </div>
+      <div *ngIf="form.get('login').errors.minlength">
+        Поле логин должно содержать минимум 3 символа
+      </div>
+      <div *ngIf="form.get('login').errors.isUsed">
+        Логин занят
+      </div>
+    </div>
+
+    <div class="input_group">
+      <input name="email" class="user-email __sign validation_show" placeholder="email" formControlName="email">
+      <span class="indicator" *ngIf="form.get('email').dirty"></span>
+    </div>
+
+    <div class="error" *ngIf="form.get('email').invalid &&
+                                    (form.get('email').dirty)">
+
+      <div *ngIf="form.get('email').errors.email">
+        E-mail не валиден
+      </div>
+      <div *ngIf="form.get('email').errors.isUsed">
+        Email занят
+      </div>
+    </div>
+
+    <div class="input_group">
+      <input name="password" type="password" class="user-password __sign validation_show" placeholder="password" formControlName="password">
+      <span class="indicator" *ngIf="form.get('password').dirty"></span>
+    </div>
+
+    <div class="error" *ngIf="form.get('password').invalid &&
+                                    (form.get('password').dirty)">
+      <div *ngIf="form.get('password').errors.required">
+        Пароль не может быть пустой
+      </div>
+      <div *ngIf="form.get('password').errors.minlength">
+        Новый пароль должен быть не короче 6ти символов
+      </div>
+    </div>
+
+    <div class="input_group">
+      <input name="confirm-password" type="password" class="user-password_confirm __sign validation_show" placeholder="confirm password" formControlName="confirmPassword">
+      <span class="indicator" *ngIf="form.get('confirmPassword').dirty"></span>
+    </div>
+
+    <div class="error" *ngIf="form.get('confirmPassword').invalid &&
+                                    (form.get('confirmPassword').dirty)">
+      <div *ngIf="form.get('confirmPassword').errors.required">
+        Пароль не может быть пустой
+      </div>
+      <div *ngIf="form.get('confirmPassword').errors.minlength">
+        Новый пароль должен быть не короче 6ти символов
+      </div>
+      <div *ngIf="form.get('confirmPassword').errors.equally">
+        {{ form.get('confirmPassword').errors.equally }}
+      </div>
+    </div>
+
+    <div class="submit-view">
+      <button class="cancel __but">Cancel</button>
+      <button type="submit" class="submit __but" [disabled]="form.invalid">Submit</button>
+    </div>
   </form>
-  <div class="submit-view">
-    <button class="cancel __but">Cancel</button>
-    <button (click)="sendDataToServer()" class="submit __but">Submit</button>
-  </div>
+
 </div>
