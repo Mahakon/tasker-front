@@ -10,6 +10,7 @@ export class TaskListComponent implements OnInit {
 
   @Input() status;
   @Input() taskList;
+  /*just commet*/
   isAdd = false;
   constructor(
     private currentDashboardService: CurrentDashboardService
