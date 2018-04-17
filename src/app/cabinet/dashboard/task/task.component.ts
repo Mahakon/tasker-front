@@ -36,6 +36,7 @@ export class TaskComponent implements OnInit {
 
   onDelete() {
     if (this.task.id !== undefined) {
+      console.log('deleting');
       this.currentDashboardService.websocket.next({
         event: DashboardEvents.DELETE,
         task: {
