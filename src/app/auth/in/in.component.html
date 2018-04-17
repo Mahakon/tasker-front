@@ -36,6 +36,15 @@
       <div *ngIf="form.get('password').errors.minlength">
         Пароль должен быть не короче 6ти символов
       </div>
+      <div *ngIf="form.getError('userNotFound')">
+        Такого пользователя не существует
+      </div>
+    </div>
+
+    <div class="error" *ngIf="form.getError('userNotFound')">
+      <div *ngIf="form.getError('userNotFound')">
+        Такого пользователя не существует
+      </div>
     </div>
 
   <div class="submit-view">
