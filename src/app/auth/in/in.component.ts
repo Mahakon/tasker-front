@@ -13,6 +13,7 @@ import { UserService} from '../../services/cabinet/user/user.service';
 })
 export class InComponent implements OnInit {
   form: FormGroup;
+  login = '';
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -42,13 +43,10 @@ export class InComponent implements OnInit {
       { relativeTo: this.route }
     );
   }
-  public login = '';
 
   private createForm() {
     return this.fb.group({
-      login: ['', [Validators.required, Validators.minLength(3)], [
-        this.checkLoginService.bind(this)
-      ]],
+      login: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }

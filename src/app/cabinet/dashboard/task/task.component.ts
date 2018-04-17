@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Task} from '../../../services/cabinet/dashboard/task.service';
-import {CurrentDashboardService} from '../../../services/cabinet/dashboard/current-dashboard.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Status, Task} from '../../../services/cabinet/dashboard/task.service';
+import {CurrentDashboardService, DashboardEvents} from '../../../services/cabinet/dashboard/current-dashboard.service';
 
 @Component({
   selector: 'app-task',
@@ -11,7 +11,9 @@ export class TaskComponent implements OnInit {
 
   @Input() task: Task;
 
-  isEdit = false;
+  @Input() isEdit = false;
+
+  @Output() closeAddedTask: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private currentDashboardService: CurrentDashboardService
@@ -22,30 +24,48 @@ export class TaskComponent implements OnInit {
 
   onEdit() {
     this.isEdit = !this.isEdit;
+    if (this.task.id === undefined) {
+      this.onClose();
+    }
   }
 
   onClose() {
     this.isEdit = !this.isEdit;
+    this.closeAddedTask.emit(null);
   }
 
   onDelete() {
-    this.currentDashboardService.dashboardData[this.task.status] =
-      this.currentDashboardService.dashboardData[this.task.status]
-        .filter( curTask => {
-          return this.task.id !== curTask.id;
+    if (this.task.id !== undefined) {
+      this.currentDashboardService.websocket.next({
+        event: DashboardEvents.DELETE,
+        task: {
+          id: this.task.id,
+          discription: this.task.discription,
+          status: this.task.status
         }
-      );
+      });
+    }
   }
 
   onAdd() {
-    this.currentDashboardService.dashboardData[this.task.status]
-      .some( curTask => {
-        if (curTask.id === this.task.id) {
-          curTask.discription = this.task.discription;
-          return true;
+    if (this.task.id === undefined) {
+      this.currentDashboardService.websocket.next({
+        event: DashboardEvents.ADD,
+        task: {
+          discription: this.task.discription,
+          status: this.task.status
         }
-        return false;
       });
+    } else {
+      this.currentDashboardService.websocket.next({
+        event: DashboardEvents.CHANGE_DISCRIPTION,
+        task: {
+          id: this.task.id,
+          discription: this.task.discription,
+          status: this.task.status
+        }
+      });
+    }
     this.onClose();
   }
 

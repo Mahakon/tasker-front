@@ -4,11 +4,20 @@
       {{status}}
     </div>
   </div>
-  <div class="task-list-container">
+  <div class="task-list-container" droppable="true" (onDrop)="changeTaskStatus($event)">
     <app-task *ngFor="let task of taskList" [task]="task"></app-task>
+    <app-task [isEdit]="isAdd"
+              *ngIf="isAdd"
+              [task]="{
+                id: underfined,
+                discription: '',
+                status: status}"
+              (closeAddedTask)="onAddNewTask()">
+    </app-task>
   </div>
   <div class="task-list-footer">
-    <button class="add-task">
+    <button class="add-task"
+            (click)="onAddNewTask()">
       NEW TASK
     </button>
   </div>
