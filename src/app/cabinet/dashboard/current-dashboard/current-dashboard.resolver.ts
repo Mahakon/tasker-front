@@ -10,6 +10,8 @@ export class CurrentDashboardResolver implements Resolve<Status[]> {
   constructor(private currentDashboardService: CurrentDashboardService) {}
 
   resolve(): Observable<Status[]> {
+    this.currentDashboardService.webSocketService.opening = false;
+    this.currentDashboardService.webSocketService.close();
     return this.currentDashboardService
       .getTasks(this.currentDashboardService.currentProjectId);
   }

@@ -28,6 +28,8 @@ import { TaskListComponent } from './cabinet/dashboard/task-list/task-list.compo
 import { TaskComponent } from './cabinet/dashboard/task/task.component';
 import {TaskService} from './services/cabinet/dashboard/task.service';
 import {CurrentDashboardResolver} from './cabinet/dashboard/current-dashboard/current-dashboard.resolver';
+import {WebSocetService} from './services/cabinet/dashboard/websocet.service';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import {CurrentDashboardResolver} from './cabinet/dashboard/current-dashboard/cu
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgDragDropModule.forRoot()
   ],
   providers: [
     UserService,
@@ -67,7 +70,8 @@ import {CurrentDashboardResolver} from './cabinet/dashboard/current-dashboard/cu
     CurrentDashboardService,
     CurrentDashboardGuard,
     CurrentDashboardResolver,
-    TaskService
+    TaskService,
+    WebSocetService
   ],
   bootstrap: [AppComponent]
 })

@@ -19,7 +19,6 @@ const postcssPlugins = require('./postcssPlugins.js');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const randomInt = require('random-int');
 
-
 module.exports = {
   "resolve": {
     "extensions": [".ts", ".js"],

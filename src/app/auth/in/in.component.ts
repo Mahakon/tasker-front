@@ -13,6 +13,7 @@ import { UserService} from '../../services/cabinet/user/user.service';
 })
 export class InComponent implements OnInit {
   form: FormGroup;
+  login = '';
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -42,13 +43,10 @@ export class InComponent implements OnInit {
       { relativeTo: this.route }
     );
   }
-  public login = '';
 
   private createForm() {
     return this.fb.group({
-      login: ['', [Validators.required, Validators.minLength(3)], [
-        this.checkLoginService.bind(this)
-      ]],
+      login: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -61,11 +59,11 @@ export class InComponent implements OnInit {
     this.signInService.autherize(url, data)
       .subscribe(
         body => {
-          console.log(body.id);
+     //     console.log(body.id);
           this.signInService.setSession(body.id)
             .subscribe(
               value => {
-              console.log(value);
+             // console.log(value);
               this.goToUserPage();
               },
               err => {
@@ -73,7 +71,15 @@ export class InComponent implements OnInit {
               }
             );
         },
-        err => console.log(err)
+        err => {
+          // console.log('Тут', err);
+          if (err.error.error === 'not found') {
+            this.form.reset();
+            this.form.setErrors({
+              'userNotFound': true
+            });
+          }
+        }
       );
 
     Array.prototype.forEach.call(

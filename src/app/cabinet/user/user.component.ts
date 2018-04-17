@@ -30,7 +30,6 @@ export class UserComponent implements OnInit {
   }
 
   private handleFileInput(files: FileList) {
-    console.log(event);
     this.avatar = files.item(0);
     this.uploadFileToActivity();
   }

@@ -1,4 +1,7 @@
-<div class="task-wrapper" id="{{task.id}}">
+<div class="task-wrapper"
+     draggable="true"
+     [dragData]="task"
+     [dragTransitClass]="'dragable-item-trans'">
   <div class="task-header">
     <div class="edit-task-view">
       <button class="edit-task">
@@ -13,6 +16,7 @@
   </div>
   <div class="task-cotainer">
     <textarea (dblclick)="onEdit()"
+              (keyup.enter)="onAdd()"
               [readonly]="!isEdit"
               class="task-infa"
               [(ngModel)]="task.discription"></textarea>
