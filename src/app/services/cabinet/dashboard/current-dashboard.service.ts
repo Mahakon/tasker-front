@@ -14,7 +14,8 @@ export enum DashboardEvents {
   ADD = 'ADD',
   DELETE = 'DELETE',
   CHANGE_DISCRIPTION = 'CHANGE_DISCRIPTION',
-  CHANGE_STATUS = 'CHANGE_STATUS'
+  CHANGE_STATUS = 'CHANGE_STATUS',
+  EVENTS = 'EVENTS'
 }
 
 @Injectable()
@@ -23,7 +24,7 @@ export class CurrentDashboardService {
   dashboardData: object;
   websocket: Subject<any>;
   eventEmitter = new EventEmitter();
-
+  eventsData: object[];
   constructor(
     private http: HttpClient,
     public webSocketService: WebSocetService
@@ -33,6 +34,7 @@ export class CurrentDashboardService {
      'process': [],
      'done': []
    };
+   this.eventsData = [];
   }
 
   openConnection() {
@@ -49,6 +51,9 @@ export class CurrentDashboardService {
   createEvents() {
     this.websocket.subscribe(
       data => {
+      //  console.log('data', data);
+        this.eventEmitter.emit(DashboardEvents.EVENTS, data.event);
+
         if (data[DashboardEvents.ADD] !== undefined) {
           console.log('emit' + DashboardEvents.ADD);
           this.eventEmitter.emit(DashboardEvents.ADD, data[DashboardEvents.ADD]);
@@ -87,5 +92,11 @@ export class CurrentDashboardService {
   getTasks(id): Observable<Status[]> {
     const url = host + `cabinet/dashboard/get?id=${id}`;
     return this.http.get<Status[]>(url);
+  }
+
+  getEvent(): Observable<Status[]> {;
+    const url = host + `cabinet/dashboard/getEvent?id=${this.currentProjectId}`;
+    const res = this.http.get<Status[]>(url);
+    return res;
   }
 }

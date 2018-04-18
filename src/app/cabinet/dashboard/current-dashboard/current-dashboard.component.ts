@@ -9,13 +9,18 @@ import {ISubscription} from 'rxjs/Subscription';
   templateUrl: './current-dashboard.component.html',
   styleUrls: ['./styles/current-dashboard.component.less']
 })
-export class CurrentDashboardComponent implements OnInit, OnDestroy {
 
+export class CurrentDashboardComponent implements OnInit, OnDestroy {
+  private view = {
+    showUrl: true,
+    shareUrl: `${location.origin}/share/`
+  };
   statusList = [Status.Todo, Status.Process, Status.Done];
   private subscriptionToAddTask: ISubscription;
   private subscriptionToDeleteTask: ISubscription;
   private subscriptionToChangeTaskDiscription: ISubscription;
   private subscriptionToChangeTaskStatus: ISubscription;
+  private subscriptionToChangeEvents: ISubscription;
 
   constructor(
     public currentDashboardService: CurrentDashboardService,
@@ -23,6 +28,9 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+
+    this.currentDashboardService.getEvent().subscribe(a => a.forEach(i => this.addEvent(i)));
+
     this.currentDashboardService.dashboardData[Status.Todo] =
       this.route.snapshot.data.tasks.filter( curTask => {
         if (curTask.status === Status.Todo) {
@@ -81,6 +89,13 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
           this.changeStatusTask(task);
         }
       );
+
+    this.subscriptionToChangeEvents = this.currentDashboardService.getSubscriptionToEvent(DashboardEvents.EVENTS)
+      .subscribe(
+        task => {
+          this.addEvent(task);
+        }
+      );
   }
 
   ngOnDestroy() {
@@ -91,12 +106,12 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
   }
 
   addNewTask(task) {
-    console.log(task);
+    console.log('addNewTask', task);
     this.currentDashboardService.dashboardData[task.status].push(task);
   }
 
   deleteTask(task) {
-    console.log('delete');
+    // console.log('delete');
     this.currentDashboardService.dashboardData[task.status] =
       this.currentDashboardService.dashboardData[task.status]
         .filter( curTask => {
@@ -106,7 +121,7 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
   }
 
   changeDiscriptionTask(task) {
-    console.log('change discription');
+ //   console.log('change discription');
       this.currentDashboardService.dashboardData[task.status]
         .some( curTask => {
             if (task.id === curTask.id) {
@@ -116,6 +131,12 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
             return false;
           }
         );
+  }
+
+  addEvent(task) {
+    console.log('event', task);
+    this.currentDashboardService.eventsData.push({task: task});
+    console.log(this.currentDashboardService.eventsData);
   }
 
   changeStatusTask(task) {

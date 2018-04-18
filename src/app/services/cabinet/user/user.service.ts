@@ -15,7 +15,8 @@ export interface UserData {
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              ) { }
   userId: number;
 
   getUserData(id: number): Observable<UserData> {

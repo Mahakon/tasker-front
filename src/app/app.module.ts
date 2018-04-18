@@ -30,6 +30,7 @@ import {TaskService} from './services/cabinet/dashboard/task.service';
 import {CurrentDashboardResolver} from './cabinet/dashboard/current-dashboard/current-dashboard.resolver';
 import {WebSocetService} from './services/cabinet/dashboard/websocet.service';
 import { NgDragDropModule } from 'ng-drag-drop';
+import { EventComponent } from './cabinet/dashboard/current-dashboard/event/event.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { NgDragDropModule } from 'ng-drag-drop';
     CreatingProjectFormComponent,
     CurrentDashboardComponent,
     TaskListComponent,
-    TaskComponent
+    TaskComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule,

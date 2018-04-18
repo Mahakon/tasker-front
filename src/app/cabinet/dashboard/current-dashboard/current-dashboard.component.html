@@ -12,4 +12,28 @@
       </app-task-list>
     </div>
   </div>
+
+  <div class="main-dashboard__info-bar">
+    <div class="info-bar__header">
+      <h3>Меню</h3>
+    </div>
+    <div class="info-bar__members under-line">
+      <div class="info-bar__title-groups">Участники</div>
+      <div class="members__avatars">
+        <div class="avatars__avatar-item active" title="Stanislav Gorovoy (@cnfc19932)"></div>
+        <div class="avatars__avatar-item" title="Stanislav Gorovoy (@cnfc19932)"></div>
+        <div class="avatars__avatar-item" title="Stanislav Gorovoy (@cnfc19932)"></div>
+      </div>
+      <div class="members__add">
+        <button class="">Добавить</button>
+      </div>
+      <div class="members__add-input" *ngIf="view.showUrl">
+        <input [value]="view.shareUrl" id="input"/><div class="add-input__copy" data-clipboard-target="#input"><i class="fas fa-copy"></i></div>
+      </div>
+    </div>
+    <div class="history" *ngIf="currentDashboardService.eventsData.length">
+      <div class="info-bar__title-groups">События</div>
+      <div class="history__events-list">
+        <app-event  *ngFor="let event of currentDashboardService.eventsData" [event]=event></app-event>
+  </div>
 </div>

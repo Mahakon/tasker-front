@@ -1,3 +1,109 @@
 @import "component/main";
 @import "component/container/main-container";
 @import "base/animated-bot";
+
+.main-dashboard__info-bar{
+  width: 250px;
+  /*background: #2899ff;*/
+  border-width: 0 0 0 1px;
+  border-style: solid;
+  border-color: #2899ff;
+  margin-left: auto;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  .info-bar__title-groups{
+    font-size: 14px;
+    color: rgba(0,0,0,.7);
+    padding: 5px;
+  }
+  & > .info-bar__members{
+    width: 100%;
+    .members__avatars {
+      padding: 2px 5px;
+      display: flex;
+      & > .avatars__avatar-item {
+        margin: 3px;
+        border: 2px solid rgba(0,0,0,.5);
+        &.active{
+          border: 2px solid rgba(53,210,59,.6);
+        }
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-size: cover;
+        background-image: url('http://127.0.0.1:3000/api/..//avatars/avatar-1523973979602.JPG');
+      }
+    }
+  }
+  .history__events-list{
+    font-size: 12px;
+
+  }
+  .members__add-input{
+    display: flex;
+    justify-content: center;
+    input{
+      width: 180px;
+      margin: 3px;
+      font-size: 12px;
+    }
+    .add-input__copy{
+      font-size: 16px;
+      padding: 0 1px;
+      color: #2899ff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .members__add{
+    display: flex;
+    justify-content: center;
+    padding: 10px 5px;
+    font-size: 16px;
+
+    button{
+      background: #2899ff;
+      padding: 2px 7px;
+      border-color: #2899ff;
+      font-size: 12px;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 2px;
+      outline: none;
+      border-style: solid;
+      line-height: 22px;
+      &:hover{
+        background: rgba(40, 153, 255, 0.8);
+      }
+    }
+  }
+  .under-line{
+    border-width: 0 0 1px 0;
+    border-color: #2899ff;
+    border-style: solid;
+  }
+  & > .info-bar__header{
+    width: 100%;
+    background: #2899ff;
+    color: #fff;
+    flex-grow: 1;
+    h3 {
+      font-size: 16px;
+      text-align: center;
+      margin: 10px 0;
+    }
+  }
+}
+.main-dashboard-wrapper{
+  display: flex;
+  align-items: stretch;
+}
+
+:host{
+  display: flex;
+  align-items: stretch;
+}

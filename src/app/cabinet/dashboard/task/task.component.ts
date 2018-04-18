@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Status, Task} from '../../../services/cabinet/dashboard/task.service';
 import {CurrentDashboardService, DashboardEvents} from '../../../services/cabinet/dashboard/current-dashboard.service';
+import {UserService} from '../../../services/cabinet/user/user.service';
 
 @Component({
   selector: 'app-task',
@@ -16,10 +17,12 @@ export class TaskComponent implements OnInit {
   @Output() closeAddedTask: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    private currentDashboardService: CurrentDashboardService
+    private currentDashboardService: CurrentDashboardService,
+    private User: UserService
   ) { }
 
   ngOnInit() {
+
   }
 
   onEdit() {
@@ -42,7 +45,8 @@ export class TaskComponent implements OnInit {
         task: {
           id: this.task.id,
           discription: this.task.discription,
-          status: this.task.status
+          status: this.task.status,
+          userId: this.User.userId
         }
       });
     }
@@ -54,7 +58,8 @@ export class TaskComponent implements OnInit {
         event: DashboardEvents.ADD,
         task: {
           discription: this.task.discription,
-          status: this.task.status
+          status: this.task.status,
+          userId: this.User.userId
         }
       });
     } else {
@@ -63,7 +68,8 @@ export class TaskComponent implements OnInit {
         task: {
           id: this.task.id,
           discription: this.task.discription,
-          status: this.task.status
+          status: this.task.status,
+          userId: this.User.userId
         }
       });
     }
