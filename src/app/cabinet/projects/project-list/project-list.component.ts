@@ -41,4 +41,11 @@ export class ProjectListComponent implements OnInit {
     this.projectListService.sendCurrentProjectId(project.id);
   }
 
+  deleteProject(projectId) {
+    console.log('delete project' + projectId);
+    this.list = this.list
+      .filter(curProject => {
+        return curProject.id !== projectId;
+      });
+  }
 }

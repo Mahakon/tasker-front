@@ -3,6 +3,7 @@ import {Status, Task} from '../../../services/cabinet/dashboard/task.service';
 import {CurrentDashboardService, DashboardEvents} from '../../../services/cabinet/dashboard/current-dashboard.service';
 import {ActivatedRoute} from '@angular/router';
 import {ISubscription} from 'rxjs/Subscription';
+import {UserService} from '../../../services/cabinet/user/user.service';
 
 @Component({
   selector: 'app-current-dashboard',
@@ -12,6 +13,8 @@ import {ISubscription} from 'rxjs/Subscription';
 export class CurrentDashboardComponent implements OnInit, OnDestroy {
 
   statusList = [Status.Todo, Status.Process, Status.Done];
+  isShowTaskRedaction = false;
+  curTaskForRedaction: Task;
   private subscriptionToAddTask: ISubscription;
   private subscriptionToDeleteTask: ISubscription;
   private subscriptionToChangeTaskDiscription: ISubscription;
@@ -19,7 +22,8 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     public currentDashboardService: CurrentDashboardService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public userService: UserService
   ) {}
 
   ngOnInit() {
@@ -138,5 +142,14 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
           }
         );
     this.currentDashboardService.dashboardData[task.status].push(task);
+  }
+
+  closeTaskRedaction() {
+    this.isShowTaskRedaction = !this.isShowTaskRedaction;
+  }
+
+  openTaskRedaction(task) {
+    this.curTaskForRedaction = task;
+    this.isShowTaskRedaction = !this.isShowTaskRedaction;
   }
 }

@@ -1,0 +1,9 @@
+<div class="comment"
+     [class.__another-user-comment]="comment.id !== curUserId">
+  <div class="user-icon">
+    <i class="fas fa-user"></i>
+  </div>
+  <div class="comment-content">
+    {{comment.content}}
+  </div>
+</div>

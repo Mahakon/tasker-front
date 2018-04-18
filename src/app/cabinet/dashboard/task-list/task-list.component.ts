@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CurrentDashboardService, DashboardEvents} from '../../../services/cabinet/dashboard/current-dashboard.service';
+import {Task} from '../../../services/cabinet/dashboard/task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -10,6 +11,7 @@ export class TaskListComponent implements OnInit {
 
   @Input() status;
   @Input() taskList;
+  @Output() editTask: EventEmitter<Task> = new EventEmitter<Task>();
   /*just commet*/
   isAdd = false;
   constructor(
@@ -30,6 +32,10 @@ export class TaskListComponent implements OnInit {
       event: DashboardEvents.CHANGE_STATUS,
       task: task
     });
+  }
+
+  onEditTask(task) {
+    this.editTask.emit(task);
   }
 
 }

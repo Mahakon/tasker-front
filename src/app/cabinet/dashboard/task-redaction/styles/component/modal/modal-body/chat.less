@@ -1,0 +1,55 @@
+@import "../../../config/globals.less";
+
+.chat-wrapper {
+  margin: 10px;
+  border: 1px solid @c-gray-light;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  .chat-container {
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .add-comment-view {
+    display: flex;
+    flex-direction: column;
+    .add-comment-container {
+      margin: 0;
+      padding: 0;
+      .add-comment-field {
+        border-radius: 6px;
+        border: 1px solid @c-gray-dark;
+        width: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+        background: none;
+        outline: none;
+        padding: 4px;
+        font-size: 16px;
+        color: black;
+        height: 40px;
+        resize: vertical;
+        opacity: 0.5;
+        cursor: pointer;
+      }
+    }
+    .add-button-view {
+      display: flex;
+      justify-content: flex-end;
+      padding: 4px;
+      .add-comment {
+        background: #698194;
+        border: 1px solid @border-color;
+        color: @c-white;
+        flex-grow: 0;
+        font-size: 12px;
+      }
+    }
+  }
+}

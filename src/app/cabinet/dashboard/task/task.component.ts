@@ -14,7 +14,7 @@ export class TaskComponent implements OnInit {
   @Input() isEdit = false;
 
   @Output() closeAddedTask: EventEmitter<any> = new EventEmitter();
-
+  @Output() edit: EventEmitter<Task> = new EventEmitter<Task>();
   constructor(
     private currentDashboardService: CurrentDashboardService
   ) { }
@@ -68,6 +68,10 @@ export class TaskComponent implements OnInit {
       });
     }
     this.onClose();
+  }
+
+  onRedact() {
+    this.edit.emit(this.task);
   }
 
 }

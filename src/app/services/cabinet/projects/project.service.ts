@@ -18,4 +18,9 @@ export class ProjectService {
     const url = host + '/cabinet/projects/add';
     return this.http.post<Project>(url, data);
   }
+
+  deleteProject(userId: number, projectId: number): Observable<any> {
+    const url = host + `/cabinet/projects/delete?userId=${userId}&projectId=${projectId}`;
+    return this.http.get<any>(url);
+  }
 }

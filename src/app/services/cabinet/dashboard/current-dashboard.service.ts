@@ -14,7 +14,8 @@ export enum DashboardEvents {
   ADD = 'ADD',
   DELETE = 'DELETE',
   CHANGE_DISCRIPTION = 'CHANGE_DISCRIPTION',
-  CHANGE_STATUS = 'CHANGE_STATUS'
+  CHANGE_STATUS = 'CHANGE_STATUS',
+  ADD_COMMENT = 'ADD_COMMENT'
 }
 
 @Injectable()
@@ -66,6 +67,11 @@ export class CurrentDashboardService {
         if (data[DashboardEvents.CHANGE_STATUS] !== undefined) {
           console.log('emit' + DashboardEvents.CHANGE_STATUS);
           this.eventEmitter.emit(DashboardEvents.CHANGE_STATUS, data[DashboardEvents.CHANGE_STATUS]);
+        }
+
+        if (data[DashboardEvents.ADD_COMMENT] !== undefined) {
+          console.log('emit' + DashboardEvents.ADD_COMMENT);
+          this.eventEmitter.emit(DashboardEvents.ADD_COMMENT, data[DashboardEvents.ADD_COMMENT]);
         }
       },
       err => {

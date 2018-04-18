@@ -1,14 +1,19 @@
 <div class="main-dashboard-wrapper">
+  <app-task-redaction *ngIf="isShowTaskRedaction"
+                      (close)="closeTaskRedaction()"
+                      [task]="curTaskForRedaction"
+                      [curUserId]="userService.userId">
+  </app-task-redaction>
   <!--<div class="dashboard-header">
     <div class="title">
     </div>
   </div>-->
-  <div class="main-dashboard-container">
+  <div class="main-dashboard-container" *ngIf="!isShowTaskRedaction">
     <div class="task-dashboard-container">
       <app-task-list *ngFor="let status of statusList"
                      [status]="status"
-                     [taskList]="currentDashboardService.dashboardData[status]">
-
+                     [taskList]="currentDashboardService.dashboardData[status]"
+                     (editTask)="openTaskRedaction($event)">
       </app-task-list>
     </div>
   </div>
