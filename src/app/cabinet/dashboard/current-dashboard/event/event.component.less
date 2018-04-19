@@ -1,12 +1,22 @@
 .events-list__event-item {
   display: flex;
   justify-content: flex-start;
-  margin: 5px 0;
   border-style: dotted;
   border-width: 0 0 1px 0;
   border-color: #2899ff;
+  max-width: 100%;
+  width: 100%;
+  min-width: 100%;
+  .text {
+    padding: 2px;
+    word-wrap: break-word;
+
+    span{
+      word-wrap: break-word;
+    }
+  }
   .avatar {
-    margin: 3px;
+    align-self: center;
     border: 1px solid rgba(0, 0, 0, .5);
     width: 25px;
     flex-grow: 0;
@@ -15,9 +25,18 @@
     min-height: 27px;
     border-radius: 50%;
     background-size: cover;
-    background-image: url('http://127.0.0.1:3000/api/..//avatars/avatar-1523973979602.JPG');
   }
   span{
     font-weight: 600;
   }
+}
+:host{
+  &, *{
+    box-sizing: border-box;
+  }
+  max-width: 100%;
+  width: 100%;
+  min-width: 100%;
+  padding: 2px;
+  display: flex;
 }

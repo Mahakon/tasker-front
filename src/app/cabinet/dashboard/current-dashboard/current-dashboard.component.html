@@ -34,6 +34,6 @@
     <div class="history" *ngIf="currentDashboardService.eventsData.length">
       <div class="info-bar__title-groups">События</div>
       <div class="history__events-list">
-        <app-event  *ngFor="let event of currentDashboardService.eventsData" [event]=event></app-event>
+        <app-event  *ngFor="let event of currentDashboardService.eventsData.reverse()" [event]=event></app-event>
   </div>
 </div>

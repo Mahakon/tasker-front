@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {static_host} from '../../../../config';
 
 @Component({
   selector: 'app-event',
@@ -18,10 +19,10 @@ export class EventComponent implements OnInit {
   ngOnInit() {
     console.log('EventComponent', this.event);
     if (this.event.task) {
-    //  this.login = this.event.task.userData[0];
+      this.login = this.event.task.userData[0];
       this.task = this.event.task.discription;
       this.board = this.event.task.status;
-    //  this.avatar = this.event.task.userData[3];
+      this.avatar = `${static_host}${this.event.task.userData[3]}`;
     }
   }
 

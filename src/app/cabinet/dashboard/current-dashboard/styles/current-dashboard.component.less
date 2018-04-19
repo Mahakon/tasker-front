@@ -13,12 +13,19 @@
   align-items: flex-start;
   flex-wrap: wrap;
   align-content: flex-start;
+  flex-direction: column;
   .info-bar__title-groups{
     font-size: 14px;
     color: rgba(0,0,0,.7);
     padding: 5px;
   }
+  .history {
+    overflow-y: scroll;
+    align-self: stretch;
+  }
   & > .info-bar__members{
+
+    align-content: flex-start;
     width: 100%;
     .members__avatars {
       padding: 2px 5px;
@@ -39,7 +46,9 @@
   }
   .history__events-list{
     font-size: 12px;
-
+    *{
+      box-sizing: border-box;
+    }
   }
   .members__add-input{
     display: flex;
@@ -90,7 +99,7 @@
     width: 100%;
     background: #2899ff;
     color: #fff;
-    flex-grow: 1;
+    align-self: flex-start;
     h3 {
       font-size: 16px;
       text-align: center;
