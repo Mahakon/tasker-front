@@ -12,6 +12,7 @@ export class EventComponent implements OnInit {
   task: string;
   board: string;
   avatar: string;
+  show = false;
   constructor() {
 
   }
@@ -19,16 +20,24 @@ export class EventComponent implements OnInit {
   ngOnInit() {
     console.log('EventComponent', this.event);
     if (this.event.task) {
+
       this.login = this.event.task.userData[0];
       this.task = this.event.task.discription;
       this.board = this.event.task.status;
-      this.avatar = `${static_host}${this.event.task.userData[3]}`;
+      if (this.event.task.userData[3]) {
+        this.avatar = `${static_host}${this.event.task.userData[3]}`;
+      } else {
+        this.avatar = '';
+      }
     }
+    setTimeout(() => {
+      this.show = true;
+    }, 300);
   }
 
   get action() {
     let a = ''
-    console.log(this.event);
+    // console.log(this.event);
     if (this.event.task) {
       switch (this.event.task.action) {
         case 'DELETE':

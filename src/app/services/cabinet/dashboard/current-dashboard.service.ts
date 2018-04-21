@@ -48,6 +48,8 @@ export class CurrentDashboardService {
       });
   }
 
+
+
   createEvents() {
     this.websocket.subscribe(
       data => {
@@ -55,21 +57,21 @@ export class CurrentDashboardService {
         this.eventEmitter.emit(DashboardEvents.EVENTS, data.event);
 
         if (data[DashboardEvents.ADD] !== undefined) {
-          console.log('emit' + DashboardEvents.ADD);
+         // console.log('emit' + DashboardEvents.ADD);
           this.eventEmitter.emit(DashboardEvents.ADD, data[DashboardEvents.ADD]);
         }
         if (data[DashboardEvents.DELETE] !== undefined) {
-          console.log('emit' + DashboardEvents.DELETE);
+        //  console.log('emit' + DashboardEvents.DELETE);
           this.eventEmitter.emit(DashboardEvents.DELETE, data[DashboardEvents.DELETE]);
         }
 
         if (data[DashboardEvents.CHANGE_DISCRIPTION] !== undefined) {
-          console.log('emit' + DashboardEvents.CHANGE_DISCRIPTION);
+        //  console.log('emit' + DashboardEvents.CHANGE_DISCRIPTION);
           this.eventEmitter.emit(DashboardEvents.CHANGE_DISCRIPTION, data[DashboardEvents.CHANGE_DISCRIPTION]);
         }
 
         if (data[DashboardEvents.CHANGE_STATUS] !== undefined) {
-          console.log('emit' + DashboardEvents.CHANGE_STATUS);
+         // console.log('emit' + DashboardEvents.CHANGE_STATUS);
           this.eventEmitter.emit(DashboardEvents.CHANGE_STATUS, data[DashboardEvents.CHANGE_STATUS]);
         }
       },
@@ -98,5 +100,22 @@ export class CurrentDashboardService {
     const url = host + `cabinet/dashboard/getEvent?id=${this.currentProjectId}`;
     const res = this.http.get<Status[]>(url);
     return res;
+  }
+
+  /* Методы для шаринга */
+  refreshShareLink(): Observable<any> {
+    const url = host + `cabinet/dashboard/share/update?project_id=${this.currentProjectId}`;
+    return this.http.get<any>(url);
+  }
+
+  getShareLink(): Observable<any> {
+    const url = host + `cabinet/dashboard/share/get?project_id=${this.currentProjectId}`;
+    return this.http.get<any>(url);
+  }
+
+  /* Методы мемберов */
+  getMembers(): Observable<any> {
+    const url = host + `cabinet/dashboard/members/get?project_id=${this.currentProjectId}`;
+    return this.http.get<any>(url);
   }
 }

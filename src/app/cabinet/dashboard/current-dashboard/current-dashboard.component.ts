@@ -3,6 +3,7 @@ import {Status, Task} from '../../../services/cabinet/dashboard/task.service';
 import {CurrentDashboardService, DashboardEvents} from '../../../services/cabinet/dashboard/current-dashboard.service';
 import {ActivatedRoute} from '@angular/router';
 import {ISubscription} from 'rxjs/Subscription';
+import {static_host} from '../../../config';
 
 @Component({
   selector: 'app-current-dashboard',
@@ -12,9 +13,12 @@ import {ISubscription} from 'rxjs/Subscription';
 
 export class CurrentDashboardComponent implements OnInit, OnDestroy {
   private view = {
-    showUrl: true,
-    shareUrl: `${location.origin}/share/`
+    showUrl: false,
+    baseShareUrl: `${location.origin}`,
+    shareUrl: '',
+    show: true,
   };
+  private members = [];
   statusList = [Status.Todo, Status.Process, Status.Done];
   private subscriptionToAddTask: ISubscription;
   private subscriptionToDeleteTask: ISubscription;
@@ -28,9 +32,31 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-
-    this.currentDashboardService.getEvent().subscribe(a => a.forEach(i => this.addEvent(i)));
-
+    this.currentDashboardService.getMembers().subscribe(value => {
+      const members = value.members;
+      this.members = members.map(v => {
+          let name = '';
+          if (v.userData[1]) {
+            name += v.userData[1];
+          }
+          if (v.userData[2]) {
+            name += ' ' + v.userData[2];
+          }
+          name += ' ' + '@' + v.userData[0];
+          return {
+            avatar: static_host + v.userData[3],
+            name: name
+          };
+        }
+      );
+      console.log(this.members);
+    });
+    if (this.currentDashboardService.eventsData.length === 0) {
+      this.currentDashboardService.getEvent().subscribe(a => a.forEach(i => this.addEvent(i)));
+    }
+    this.currentDashboardService.getShareLink().subscribe(result => {
+      this.view.shareUrl = result.code;
+    });
     this.currentDashboardService.dashboardData[Status.Todo] =
       this.route.snapshot.data.tasks.filter( curTask => {
         if (curTask.status === Status.Todo) {
@@ -98,15 +124,21 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
       );
   }
 
+  refreshShareLink()  {
+    this.currentDashboardService.refreshShareLink().subscribe(result => this.view.shareUrl = result.code);
+  }
+
   ngOnDestroy() {
+
     this.subscriptionToAddTask.unsubscribe();
     this.subscriptionToDeleteTask.unsubscribe();
     this.subscriptionToChangeTaskDiscription.unsubscribe();
     this.subscriptionToChangeTaskStatus.unsubscribe();
+    this.subscriptionToChangeEvents.unsubscribe();
   }
 
   addNewTask(task) {
-    console.log('addNewTask', task);
+  //  console.log('addNewTask', task);
     this.currentDashboardService.dashboardData[task.status].push(task);
   }
 
@@ -134,11 +166,11 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
   }
 
   addEvent(task) {
-    console.log('event', task);
     this.currentDashboardService.eventsData.push({task: task});
-    console.log(this.currentDashboardService.eventsData);
   }
-
+  toMenu() {
+    this.view.show = !this.view.show;
+  }
   changeStatusTask(task) {
     this.currentDashboardService.dashboardData[Status.Done] =
       this.currentDashboardService.dashboardData[Status.Done]

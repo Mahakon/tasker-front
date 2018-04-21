@@ -2,10 +2,28 @@
 @import "component/container/main-container";
 @import "base/animated-bot";
 
+
+.main-dashboard__info-bar--open{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  color: #2899ff;
+  padding: 5px;
+  cursor: pointer;
+  &.active{
+    color: #3f515f;
+  }
+}
 .main-dashboard__info-bar{
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #fff;
   width: 250px;
   /*background: #2899ff;*/
-  border-width: 0 0 0 1px;
+  border-width: 0 0 1px 1px;
   border-style: solid;
   border-color: #2899ff;
   margin-left: auto;
@@ -22,6 +40,7 @@
   .history {
     overflow-y: scroll;
     align-self: stretch;
+    max-height: 600px;
   }
   & > .info-bar__members{
 
@@ -29,9 +48,11 @@
     width: 100%;
     .members__avatars {
       padding: 2px 5px;
+
       display: flex;
       & > .avatars__avatar-item {
         margin: 3px;
+        font-size: 25px;
         border: 2px solid rgba(0,0,0,.5);
         &.active{
           border: 2px solid rgba(53,210,59,.6);
@@ -40,7 +61,6 @@
         height: 25px;
         border-radius: 50%;
         background-size: cover;
-        background-image: url('http://127.0.0.1:3000/api/..//avatars/avatar-1523973979602.JPG');
       }
     }
   }
@@ -61,6 +81,14 @@
     .add-input__copy{
       font-size: 16px;
       padding: 0 1px;
+      color: #2899ff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    .add-input__refresh{
+      font-size: 14px;
+      padding: 0 2px;
       color: #2899ff;
       cursor: pointer;
       display: flex;

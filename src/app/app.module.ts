@@ -31,6 +31,8 @@ import {CurrentDashboardResolver} from './cabinet/dashboard/current-dashboard/cu
 import {WebSocetService} from './services/cabinet/dashboard/websocet.service';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { EventComponent } from './cabinet/dashboard/current-dashboard/event/event.component';
+import { ShareComponent } from './cabinet/share/share.component';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { EventComponent } from './cabinet/dashboard/current-dashboard/event/even
     CurrentDashboardComponent,
     TaskListComponent,
     TaskComponent,
-    EventComponent
+    EventComponent,
+    ShareComponent
   ],
   imports: [
     BrowserModule,

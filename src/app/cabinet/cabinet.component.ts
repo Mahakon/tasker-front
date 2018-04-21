@@ -16,7 +16,7 @@ export class CabinetComponent implements OnInit {
     private open_menu = false;
     private exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
     menu: any = [
-        {title: 'HOME', url: '/cabinet/home/', ico: '<i class="fas fa-home"></i>'},
+        {title: 'HOME', url: '/cabinet/', ico: '<i class="fas fa-home"></i>'},
         {title: 'PROJECTS', url: '/cabinet/projects/', ico: '<i class="fas fa-briefcase"></i>'},
         {title: 'DASHBOARD', url: `/cabinet/dashboard/underfined`, ico: '<i class="fas fa-columns"></i>'},
         {title: 'USER', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'},
@@ -62,6 +62,8 @@ export class CabinetComponent implements OnInit {
 
     click_on_menu() {
         this.open_menu = !this.open_menu;
-        console.log('click');
+    }
+    hide_menu() {
+      this.open_menu = false;
     }
 }
