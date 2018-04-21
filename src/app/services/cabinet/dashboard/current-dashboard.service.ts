@@ -3,7 +3,7 @@ import {Subject} from 'rxjs/Subject';
 import {Status} from './task.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {UserData} from '../user/user.service';
+import {UserData, UserService} from '../user/user.service';
 import {host, wsshost} from '../../../config';
 import {WebSocetService} from './websocet.service';
 import 'rxjs/add/operator/map';
@@ -27,7 +27,8 @@ export class CurrentDashboardService {
 
   constructor(
     private http: HttpClient,
-    public webSocketService: WebSocetService
+    public webSocketService: WebSocetService,
+    private userService: UserService
   ) {
    this.dashboardData = {
      'todo': [],
@@ -52,26 +53,31 @@ export class CurrentDashboardService {
       data => {
         if (data[DashboardEvents.ADD] !== undefined) {
           console.log('emit' + DashboardEvents.ADD);
-          this.eventEmitter.emit(DashboardEvents.ADD, data[DashboardEvents.ADD]);
+          this.eventEmitter.emit(DashboardEvents.ADD,
+            data[DashboardEvents.ADD]);
         }
         if (data[DashboardEvents.DELETE] !== undefined) {
           console.log('emit' + DashboardEvents.DELETE);
-          this.eventEmitter.emit(DashboardEvents.DELETE, data[DashboardEvents.DELETE]);
+          this.eventEmitter.emit(DashboardEvents.DELETE,
+            data[DashboardEvents.DELETE]);
         }
 
         if (data[DashboardEvents.CHANGE_DISCRIPTION] !== undefined) {
           console.log('emit' + DashboardEvents.CHANGE_DISCRIPTION);
-          this.eventEmitter.emit(DashboardEvents.CHANGE_DISCRIPTION, data[DashboardEvents.CHANGE_DISCRIPTION]);
+          this.eventEmitter.emit(DashboardEvents.CHANGE_DISCRIPTION,
+            data[DashboardEvents.CHANGE_DISCRIPTION]);
         }
 
         if (data[DashboardEvents.CHANGE_STATUS] !== undefined) {
           console.log('emit' + DashboardEvents.CHANGE_STATUS);
-          this.eventEmitter.emit(DashboardEvents.CHANGE_STATUS, data[DashboardEvents.CHANGE_STATUS]);
+          this.eventEmitter.emit(DashboardEvents.CHANGE_STATUS,
+            data[DashboardEvents.CHANGE_STATUS]);
         }
 
         if (data[DashboardEvents.ADD_COMMENT] !== undefined) {
           console.log('emit' + DashboardEvents.ADD_COMMENT);
-          this.eventEmitter.emit(DashboardEvents.ADD_COMMENT, data[DashboardEvents.ADD_COMMENT]);
+          this.eventEmitter.emit(DashboardEvents.ADD_COMMENT,
+            data[DashboardEvents.ADD_COMMENT]);
         }
       },
       err => {
@@ -91,7 +97,8 @@ export class CurrentDashboardService {
   }
 
   getTasks(id): Observable<Status[]> {
-    const url = host + `cabinet/dashboard/get?id=${id}`;
+    const url = host + `cabinet/dashboard/get?` +
+                  `id=${id}&userId=${this.userService.userId}`;
     return this.http.get<Status[]>(url);
   }
 }

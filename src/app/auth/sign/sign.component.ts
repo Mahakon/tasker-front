@@ -11,7 +11,7 @@ import {UserService} from '../../services/cabinet/user/user.service';
 })
 export class SignComponent implements OnInit {
   private vkClientId = 6435400;
-  private bitbucketClientId = 'vcTtRQqP9hvuSx2P2h';
+  private bitbucketClientId = 'HeXa6xKMQHt9DXd6bk';
   isSignIn: boolean;
   vkUrl = `https://oauth.vk.com/authorize?` +
           `client_id=${this.vkClientId}&` +

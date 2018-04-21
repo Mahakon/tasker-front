@@ -12,6 +12,10 @@ import { CustomValidators } from '../../components/validators';
 })
 export class UserComponent implements OnInit {
   users_data: FormGroup;
+  private bitbucketClientId = 'HeXa6xKMQHt9DXd6bk';
+  bitbucketUrl = `https://bitbucket.org/site/oauth2/authorize?` +
+    `client_id=${this.bitbucketClientId}&` +
+    `response_type=code`;
   password_form: FormGroup;
   avatar_src = '';
   host = host;

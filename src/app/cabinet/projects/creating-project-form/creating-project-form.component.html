@@ -27,6 +27,40 @@
                  placeholder="title"
                  formControlName="title"/>
         </form>
+
+        <div class="bitbusket-form">
+          <div *ngIf="formVisibality" class="bitbucket-view">
+            <div class="bitbucket_icon"></div>
+            <button class="bitbucket_on" (click)="onBit()"></button>
+          </div>
+          <div class="choose-repository-view" *ngIf="formVisibality&&bitMode">
+            <div class="choose-repository-title">Choose Repository:</div>
+            <div class="choose-repository">
+              <select class="choose-repository-selector"
+                      [(ngModel)]="selectedRepository"
+                      (ngModelChange)="onSelect()">
+                <option *ngFor="let rep of allRepositories"
+                        [ngValue]="rep">
+                    {{rep.slug}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="choose-branch-view" *ngIf="formVisibality&&bitMode">
+            <div class="choose-branch-title">Choose Branch:</div>
+            <div class="choose-branch">
+              <select class="choose-branch-selector"
+                      [(ngModel)]="selectedBranch"
+                      (ngModelChange)="onSelectBranch()">
+                <option *ngFor="let branch of allBranches"
+                        [ngValue]="branch">
+                  {{branch}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         <div *ngIf="!formVisibality" class="animated-bot __location __moving-antenns __loading">
           <div class="bot-head">
             <div class="bot-eye"></div>
@@ -48,7 +82,7 @@
                       <button (click)="onClose()" class="action-button __cancel">Cancel</button>
                   </div>
                   <div class="action-button-w">
-                      <button (click)="onSubmit()" [disabled]="form.invalid" class="action-button __ok">Create</button>
+                      <button (click)="onSubmit()" [disabled]="!isValidBit||form.invalid" class="action-button __ok">Create</button>
                   </div>
               </div>
           </div>

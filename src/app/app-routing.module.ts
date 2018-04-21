@@ -38,7 +38,7 @@ const routes: Routes = [
         canActivate: [CurrentDashboardGuard],
         resolve: { tasks: CurrentDashboardResolver }
       },
-      { path: '', redirectTo: 'dashboard/11', pathMatch: 'full' }
+      { path: '', redirectTo: 'projects', pathMatch: 'full' }
     ]
   },
   { path: '', redirectTo: 'auth', pathMatch: 'full' }
