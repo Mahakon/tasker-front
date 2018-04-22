@@ -17,7 +17,7 @@ export class UserService {
 
   constructor(private http: HttpClient,
               ) { }
-  userId: number;
+  public userId: number;
 
   getUserData(id: number): Observable<UserData> {
     const url = host + `user/data?id=${id}`;

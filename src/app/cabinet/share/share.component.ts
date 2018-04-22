@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SignInService } from '../../services/sign/sign-in.service';
 
 @Component({
   selector: 'app-share',
@@ -7,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShareComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private signService: SignInService
+  ) { }
 
-  ngOnInit() {
-    console.log('share');
+  ngOnInit() {    
+    if (this.route.snapshot.params.code) {
+      localStorage.setItem('share_link', this.route.snapshot.params.code);
+      localStorage.setItem('share_link_time',  Date.now().toString());
+    }
+    this.router.navigate(
+      ['/cabinet'],
+      { relativeTo: this.route }
+    );
   }
 
 }

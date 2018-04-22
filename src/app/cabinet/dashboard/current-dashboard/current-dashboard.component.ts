@@ -49,7 +49,7 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
           };
         }
       );
-      console.log(this.members);
+    //  console.log(this.members);
     });
     if (this.currentDashboardService.eventsData.length === 0) {
       this.currentDashboardService.getEvent().subscribe(a => a.forEach(i => this.addEvent(i)));
@@ -165,6 +165,10 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
         );
   }
 
+  /* Копируем ссылку */
+  copyShareLink() {
+    
+  }
   addEvent(task) {
     this.currentDashboardService.eventsData.push({task: task});
   }

@@ -7,6 +7,7 @@ export class ShareGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+   // console.log(RouterStateSnapshot);
     return true;
   }
 }

@@ -18,4 +18,6 @@ export class ProjectService {
     const url = host + '/cabinet/projects/add';
     return this.http.post<Project>(url, data);
   }
+
+
 }

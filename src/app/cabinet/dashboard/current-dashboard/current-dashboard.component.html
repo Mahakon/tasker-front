@@ -30,8 +30,8 @@
       </div>
       <div class="members__add-input" *ngIf="view.showUrl">
         <div class="add-input__refresh" (click)="refreshShareLink()"><i class="fas fa-sync"></i></div>
-        <input [value]="view.baseShareUrl+'?code='+view.shareUrl" id="input"/>
-        <div class="add-input__copy" data-clipboard-target="#input"><i class="fas fa-copy"></i></div>
+        <input [value]="view.baseShareUrl+'/share/'+view.shareUrl" id="input"/>
+        <div class="add-input__copy" (click) = "copyShareLink()"><i class="fas fa-copy"></i></div>
       </div>
     </div>
     <div class="history" *ngIf="currentDashboardService.eventsData.length">

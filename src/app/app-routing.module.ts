@@ -31,13 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'share/:code',
-    component: ShareComponent,
-    canActivate: [ShareGuard]
-  },
-  {
-    path: 'share',
-    component: ShareComponent,
-    canActivate: [ShareGuard]
+    component: ShareComponent
   },
   {
     path: 'cabinet',
