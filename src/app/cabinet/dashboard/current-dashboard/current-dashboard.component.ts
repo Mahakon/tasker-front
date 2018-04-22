@@ -19,7 +19,7 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
     shareUrl: '',
     show: true,
   };
-  private members = [];
+  public members = [];
   statusList = [Status.Todo, Status.Process, Status.Done];
   isShowTaskRedaction = false;
   curTaskForRedaction: Task;

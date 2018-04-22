@@ -128,6 +128,7 @@ export class CurrentDashboardService {
 
   /* Методы мемберов */
   getMembers(): Observable<any> {
+    console.log('gehgzc');
     const url = host + `cabinet/dashboard/members/get?project_id=${this.currentProjectId}`;
     return this.http.get<any>(url);
   }
