@@ -47,8 +47,12 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
             name += ' ' + v.userData[2];
           }
           name += ' ' + '@' + v.userData[0];
+          let avatar = static_host + v.userData[3];
+          if (!v.userData[3]) {
+            avatar = '';
+          }
           return {
-            avatar: static_host + v.userData[3],
+            avatar: avatar,
             name: name
           };
         }
