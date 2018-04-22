@@ -43,6 +43,7 @@ export class UserComponent implements OnInit {
       // do something, if upload success
       console.log(data);
       this.avatar_src = data.src;
+
     }, error => {
       console.error('delAvatar', error);
     });

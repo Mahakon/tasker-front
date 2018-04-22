@@ -20,6 +20,7 @@ export interface Task {
   id: number;
   discription: string;
   status: Status;
+  user?: number;
 }
 
 /* jfdsl */

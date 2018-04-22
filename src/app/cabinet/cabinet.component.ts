@@ -15,16 +15,17 @@ export class CabinetComponent implements OnInit {
     private host_name: string;
     private open_menu = false;
     private exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
+    public currentPage = '';
     menu: any = [
-        {title: 'HOME', url: '/cabinet/home/', ico: '<i class="fas fa-home"></i>'},
+        {title: 'HOME', url: '/cabinet/projects/', ico: '<i class="fas fa-home"></i>'},
         {title: 'PROJECTS', url: '/cabinet/projects/', ico: '<i class="fas fa-briefcase"></i>'},
         {title: 'DASHBOARD', url: `/cabinet/dashboard/underfined`, ico: '<i class="fas fa-columns"></i>'},
         {title: 'USER', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'},
         {title: 'TITLE5', url: '/cabinet/stats/', ico: '<i class="fas fa-chart-pie"></i>'}
     ];
 
+
   get user(): UserData {
-    // console.log('user', this.route.snapshot.data.user);
     return this.route.snapshot.data.user;
   }
 
@@ -36,6 +37,22 @@ export class CabinetComponent implements OnInit {
       ) {}
 
     ngOnInit() {
+      /*
+        Проверяем рефералку 
+      */
+    if (localStorage.getItem('share_link') && localStorage.getItem('share_link_time')){
+      const share_link = localStorage.getItem('share_link');
+      const share_link_time = localStorage.getItem('share_link_time');
+      const current_time = Date.now();
+      if (current_time - parseInt(share_link_time) <= 60*5*1000) {
+        // Тут отправляем запрос
+        this.projectListService.addProjectToUser(share_link, this.userService.userId).subscribe(res => console.log(res));
+      }else{
+        console.log('Ссылка устарела');
+      }
+      localStorage.removeItem('share_link_time');
+      localStorage.removeItem('share_link');
+    }
     this.userService.turnOffLoadingAnimation();
     this.host_name = host;
     this.projectListService.listOfProjects = this.user.projects;
@@ -62,6 +79,8 @@ export class CabinetComponent implements OnInit {
 
     click_on_menu() {
         this.open_menu = !this.open_menu;
-        console.log('click');
+    }
+    hide_menu() {
+      this.open_menu = false;
     }
 }

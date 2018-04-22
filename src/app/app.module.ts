@@ -32,6 +32,9 @@ import {WebSocetService} from './services/cabinet/dashboard/websocet.service';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TaskRedactionComponent } from './cabinet/dashboard/task-redaction/task-redaction.component';
 import { CommentComponent } from './cabinet/dashboard/comment/comment.component';
+import { EventComponent } from './cabinet/dashboard/current-dashboard/event/event.component';
+import { ShareComponent } from './cabinet/share/share.component';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { CommentComponent } from './cabinet/dashboard/comment/comment.component'
     TaskListComponent,
     TaskComponent,
     TaskRedactionComponent,
-    CommentComponent
+    CommentComponent,
+    EventComponent,
+    ShareComponent
   ],
   imports: [
     BrowserModule,

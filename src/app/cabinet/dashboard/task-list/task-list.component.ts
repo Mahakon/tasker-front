@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CurrentDashboardService, DashboardEvents} from '../../../services/cabinet/dashboard/current-dashboard.service';
+import {UserService} from '../../../services/cabinet/user/user.service';
 import {Task} from '../../../services/cabinet/dashboard/task.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class TaskListComponent implements OnInit {
   /*just commet*/
   isAdd = false;
   constructor(
-    private currentDashboardService: CurrentDashboardService
+    private currentDashboardService: CurrentDashboardService,
+    private User: UserService
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,7 @@ export class TaskListComponent implements OnInit {
   changeTaskStatus(e: any) {
     e.dragData.status = this.status;
     const task = e.dragData;
+    task.userId = this.User.userId;
     this.currentDashboardService.websocket.next({
       event: DashboardEvents.CHANGE_STATUS,
       task: task

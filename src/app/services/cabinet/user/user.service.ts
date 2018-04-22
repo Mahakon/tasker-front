@@ -15,8 +15,9 @@ export interface UserData {
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) { }
-  userId: number;
+  constructor(private http: HttpClient,
+              ) { }
+  public userId: number;
 
   getUserData(id: number): Observable<UserData> {
     const url = host + `user/data?id=${id}`;
