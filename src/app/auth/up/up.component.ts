@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { host } from '../../config';
-import {SignInService} from '../../services/sign/sign-in.service';
+import {BotAnimation, SignInService} from '../../services/sign/sign-in.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { CustomValidators } from '../../components/validators';
 import { UserService} from '../../services/cabinet/user/user.service';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-up',
@@ -27,11 +28,15 @@ export class UpComponent implements OnInit {
 
   private checkLoginService(control: AbstractControl) {
     return new Promise(resolve => {
-      this.userService.checkEmailOrLoginService('login', control.value).subscribe(a => {
-        if (a.result) {
-          resolve({isUsed: 'Логин занят'});
-        }
-        resolve(null);
+      this.userService.checkEmailOrLoginService('login', control.value)
+        .debounceTime(500)
+        .subscribe(a => {
+          if (a.result) {
+            this.signInService.sendAnimation(BotAnimation.ANGRY);
+            resolve({isUsed: 'Логин занят'});
+          }
+          this.signInService.sendAnimation(BotAnimation.NORMAL);
+          resolve(null);
       });
     });
   }
@@ -40,8 +45,10 @@ export class UpComponent implements OnInit {
     return new Promise(resolve => {
       this.userService.checkEmailOrLoginService('email', control.value).subscribe(a => {
         if (a.result) {
+          this.signInService.sendAnimation(BotAnimation.ANGRY);
           resolve({isUsed: 'Email занят'});
         }
+        this.signInService.sendAnimation(BotAnimation.NORMAL);
         resolve(null);
       });
     });

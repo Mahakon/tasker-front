@@ -34,6 +34,7 @@ import { TaskRedactionComponent } from './cabinet/dashboard/task-redaction/task-
 import { CommentComponent } from './cabinet/dashboard/comment/comment.component';
 import { EventComponent } from './cabinet/dashboard/current-dashboard/event/event.component';
 import { ShareComponent } from './cabinet/share/share.component';
+import { AnimatedBotComponent } from './animated-bot/animated-bot.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { ShareComponent } from './cabinet/share/share.component';
     TaskRedactionComponent,
     CommentComponent,
     EventComponent,
-    ShareComponent
+    ShareComponent,
+    AnimatedBotComponent
   ],
   imports: [
     BrowserModule,
