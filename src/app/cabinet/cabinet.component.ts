@@ -42,7 +42,7 @@ export class CabinetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
       this.user = this.route.snapshot.data.user;
-      const subscription = this.userService.userUpdate.subscribe(user => {
+      this.subscription = this.userService.userUpdate.subscribe(user => {
         // console.log(user);
         this.user = user;
       });

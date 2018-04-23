@@ -1,3 +1,4 @@
+
 export const mode = 'test';
 // export const mode = 'production';
 export const login = 'maha1';
@@ -13,6 +14,7 @@ export const host = 'https://1b0ddd63.ngrok.io/api/';
 export const wsshost = 'wss://1b0ddd63.ngrok.io';
 export const static_host = 'https://1b0ddd63.ngrok.io/';
 */
+
 
 /*
 export const host = 'https://bot-tasker.info/api/';

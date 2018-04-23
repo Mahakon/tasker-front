@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SignInService } from '../../services/sign/sign-in.service';
+import {BotAnimation, SignInService} from '../../services/sign/sign-in.service';
 import { host } from '../../config';
 import { FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { UserService} from '../../services/cabinet/user/user.service';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-in',
@@ -28,11 +29,15 @@ export class InComponent implements OnInit {
 
   private checkLoginService(control: AbstractControl) {
     return new Promise(resolve => {
-      this.userService.checkEmailOrLoginService('login', control.value).subscribe(a => {
-        if (a.result) {
-          resolve({isUsed: 'Логин занят'});
-        }
-        resolve(null);
+      this.userService.checkEmailOrLoginService('login', control.value)
+        .debounceTime(500)
+        .subscribe(a => {
+          if (a.result) {
+            this.signInService.sendAnimation(BotAnimation.ANGRY);
+            resolve({isUsed: 'Логин занят'});
+          }
+          this.signInService.sendAnimation(BotAnimation.NORMAL);
+          resolve(null);
       });
     });
   }

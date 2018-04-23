@@ -3,6 +3,7 @@ import { NavigationEnd, Router} from '@angular/router';
 import { host } from '../../config';
 import {Validators} from '@angular/forms';
 import {UserService} from '../../services/cabinet/user/user.service';
+import {BotAnimation, SignInService} from '../../services/sign/sign-in.service';
 
 @Component({
   selector: 'app-sign',
@@ -21,17 +22,49 @@ export class SignComponent implements OnInit {
   bitbucketUrl = `https://bitbucket.org/site/oauth2/authorize?` +
                  `client_id=${this.bitbucketClientId}&` +
                  `response_type=code`;
+  botState = {
+    angry: false,
+    normal: false,
+    antenns: true,
+    pupil: true,
+    open: false,
+    close: false,
+    loading: false
+  };
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private signInService: SignInService
   ) {}
-
 
   ngOnInit() {
     this.userService.turnOffLoadingAnimation();
     this.isSignIn = true;
     this.changeColorOfSelectedLink();
+    this.changeClassBot();
+  }
+
+  changeClassBot() {
+    this.signInService.getAnimation()
+      .subscribe(
+        animation => {
+          console.log(animation);
+          switch (animation) {
+            case BotAnimation.ANGRY: {
+              this.botState.antenns = false;
+              this.botState.pupil = false;
+              this.botState.angry = true;
+            } break;
+            case BotAnimation.NORMAL: {
+              this.botState.normal = true;
+              this.botState.antenns = true;
+              this.botState.pupil = true;
+              this.botState.normal = false;
+            }break;
+          }
+        }
+      );
   }
 
   changeColorOfSelectedLink() {

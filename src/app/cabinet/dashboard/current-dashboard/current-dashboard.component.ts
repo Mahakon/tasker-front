@@ -63,7 +63,12 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
       this.currentDashboardService.getEvent().subscribe(a => a.forEach(i => this.addEvent(i)));
     }
     this.currentDashboardService.getShareLink().subscribe(result => {
-      this.view.shareUrl = result.code;
+    //  console.log(result);
+      if (!result) {
+        this.view.shareUrl = result.code;
+      } else {
+        this.refreshShareLink();
+      }
     });
     this.currentDashboardService.dashboardData[Status.Todo] =
       this.route.snapshot.data.tasks.filter( curTask => {

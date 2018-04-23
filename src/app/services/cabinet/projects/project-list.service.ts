@@ -32,7 +32,7 @@ export class ProjectListService {
     return this.subject.asObservable();
   }
   addProjectToUser(code: string, id: number): Observable<any> {
-    const url = host + 'cabinet/dashboard/share/addUser/'+code+`?id=${id}`;
+    const url = host + 'cabinet/dashboard/share/addUser/' + code + `?id=${id}`;
     return this.http.get(url);
   }
 }
