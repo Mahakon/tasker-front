@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { host } from '../../../config';
 import { Observable } from 'rxjs/Observable';
 import {Project} from '../projects/project.service';
+import {Subject} from 'rxjs/Subject';
 
 export interface UserData {
   login: string;
@@ -18,12 +19,20 @@ export class UserService {
   constructor(private http: HttpClient,
               ) { }
   public userId: number;
+  public userUpdate = new Subject();
+
+
 
   getUserData(id: number): Observable<UserData> {
     const url = host + `user/data?id=${id}`;
     return this.http.get<UserData>(url);
   }
-
+  updateUserData() {
+    // console.log('update');
+    this.getUserData(this.userId).subscribe(user => {
+      this.userUpdate.next(user);
+    });
+  }
   turnOffLoadingAnimation() {
     document.getElementById('loaderBot').style.display = 'none';
   }

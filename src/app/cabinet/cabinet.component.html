@@ -8,7 +8,9 @@
             <div class="header__user-cabinet">
 
                 <div class="user-cabinet__avatar" routerLink="/cabinet/user/" routerLinkActive="active">
-                  <i *ngIf = "!user.avatar" class="fas fa-user-circle"></i>
+                  <span *ngIf = "!user.avatar">
+                    <i class="fas fa-user-circle"></i>
+                  </span>
                   <img *ngIf = "user.avatar" id="avatar" [src] = "host_name + '../' + user.avatar"/>
                 </div>
                 <div class="user-cabinet__name">{{user.login}}</div>

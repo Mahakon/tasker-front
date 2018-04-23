@@ -1,21 +1,24 @@
-import { Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignInService } from '../services/sign/sign-in.service';
 import { UserData, UserService } from '../services/cabinet/user/user.service';
 import { host } from '../config';
 import {ProjectListService} from '../services/cabinet/projects/project-list.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-cabinet',
     templateUrl: './cabinet.component.html',
     styleUrls: ['./cabinet.component.less']
 })
-export class CabinetComponent implements OnInit {
+export class CabinetComponent implements OnInit, OnDestroy {
     private id: number;
     private host_name: string;
     private open_menu = false;
     private exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
     public currentPage = '';
+    public user: any;
+    subscription: Subscription;
     menu: any = [
         {title: 'HOME', url: '/cabinet/projects/', ico: '<i class="fas fa-home"></i>'},
         {title: 'PROJECTS', url: '/cabinet/projects/', ico: '<i class="fas fa-briefcase"></i>'},
@@ -25,10 +28,11 @@ export class CabinetComponent implements OnInit {
     ];
 
 
+  /*
   get user(): UserData {
-    return this.route.snapshot.data.user;
+    return this.userData;
   }
-
+  */
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -37,25 +41,14 @@ export class CabinetComponent implements OnInit {
       ) {}
 
     ngOnInit() {
-      /*
-        Проверяем рефералку 
-      */
-    if (localStorage.getItem('share_link') && localStorage.getItem('share_link_time')){
-      const share_link = localStorage.getItem('share_link');
-      const share_link_time = localStorage.getItem('share_link_time');
-      const current_time = Date.now();
-      if (current_time - parseInt(share_link_time) <= 60*5*1000) {
-        // Тут отправляем запрос
-        this.projectListService.addProjectToUser(share_link, this.userService.userId).subscribe(res => console.log(res));
-      }else{
-        console.log('Ссылка устарела');
-      }
-      localStorage.removeItem('share_link_time');
-      localStorage.removeItem('share_link');
-    }
-    this.userService.turnOffLoadingAnimation();
-    this.host_name = host;
-    this.projectListService.listOfProjects = this.user.projects;
+      this.user = this.route.snapshot.data.user;
+      const subscription = this.userService.userUpdate.subscribe(user => {
+        // console.log(user);
+        this.user = user;
+      });
+      this.userService.turnOffLoadingAnimation();
+      this.host_name = host;
+      this.projectListService.listOfProjects = this.user.projects;
     }
 
     goToSignIn() {
@@ -63,6 +56,10 @@ export class CabinetComponent implements OnInit {
           ['/auth/sign-in'],
           { relativeTo: this.route }
         );
+    }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
     }
 
     logOut() {
