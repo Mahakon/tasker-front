@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
   password_form: FormGroup;
   avatar_src = '';
   host = host;
+  private userData = this.route.parent.snapshot.data.user;
   private updated = {
     users_data: false,
     password_form: false
@@ -38,12 +39,11 @@ export class UserComponent implements OnInit {
     this.uploadFileToActivity();
   }
   private removeAvatar() {
-    console.log('Тут я удаляю аватарку');
+    // console.log('Тут я удаляю аватарку');
     this.userService.delAvatar().subscribe(data => {
       // do something, if upload success
-      console.log(data);
       this.avatar_src = data.src;
-
+      this.userService.updateUserData();
     }, error => {
       console.error('delAvatar', error);
     });
@@ -51,17 +51,16 @@ export class UserComponent implements OnInit {
   uploadFileToActivity() {
     this.userService.postAvatar(this.avatar).subscribe(data => {
       // do something, if upload success
-      console.log(data);
+      // console.log(data);
       this.avatar_src = data.src;
+      setTimeout(this.userService.updateUserData.bind(this.userService), 1000);
     }, error => {
       console.error('uploadFileToActivity', error);
     });
   }
 
   get user(): UserData {
-    const user = {};
-    // user.avatar = host + '../' + user.avatar;
-    return Object.assign(user, this.route.parent.snapshot.data.user);
+    return this.userData;
   }
   private checkLoginService(control: AbstractControl) {
     return new Promise(resolve => {
@@ -128,9 +127,13 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit() {
+    this.userService.userUpdate.subscribe(user => {
+      this.userData = user;
+    });
     this.userService.postUserData(this.users_data.value).subscribe(data => {
       if (data.success) {
         this.updated.users_data = true; // Говорим что обновили данные
+        this.userService.updateUserData();
         setTimeout(() => {      // Возращаем все как было
           this.updated.users_data = false;
           this.users_data.markAsPristine();
