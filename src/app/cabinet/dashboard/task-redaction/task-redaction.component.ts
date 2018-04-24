@@ -75,6 +75,12 @@ export class TaskRedactionComponent implements OnInit, OnDestroy {
           task_id: this.task.id,
           user_id: this.curUserId,
           content: this.inputMessage
+        },
+        task: {
+          taskId: this.task.id,
+          userId: this.curUserId,
+          discription: this.inputMessage,
+          status: this.task.discription
         }
       });
       this.inputMessage = '';
