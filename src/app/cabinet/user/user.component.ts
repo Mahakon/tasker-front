@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
   avatar_src = '';
   host = host;
   private userData = this.route.parent.snapshot.data.user;
-  private updated = {
+  public updated = {
     users_data: false,
     password_form: false
   };
@@ -114,7 +114,7 @@ export class UserComponent implements OnInit {
         this.updated.password_form = true;
         setTimeout(() => {      // Возращаем все как было
           this.updated.password_form = false;
-          this.password_form.reset()
+          this.password_form.reset();
           this.password_form.markAsPristine();
         }, 3000);
       } else {
