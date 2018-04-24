@@ -60,7 +60,7 @@ export class TaskRedactionComponent implements OnInit, OnDestroy {
       this.task.status = this.selectedStatus;
       this.currentDashboardService.websocket.next({
         event: DashboardEvents.CHANGE_STATUS,
-        task: this.task
+        task: {...this.task, userId: this.curUserId}
       });
     }
     this.onClose();
