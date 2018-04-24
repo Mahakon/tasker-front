@@ -20,7 +20,7 @@ export class UserService {
               ) { }
   public userId: number;
   public userUpdate = new Subject();
-
+  public currentPageUpdate = new Subject<string>();
 
 
   getUserData(id: number): Observable<UserData> {
@@ -28,10 +28,12 @@ export class UserService {
     return this.http.get<UserData>(url);
   }
   updateUserData() {
-    // console.log('update');
     this.getUserData(this.userId).subscribe(user => {
       this.userUpdate.next(user);
     });
+  }
+  updateCurrentPage(page) {
+    this.currentPageUpdate.next(page);
   }
   turnOffLoadingAnimation() {
     document.getElementById('loaderBot').style.display = 'none';

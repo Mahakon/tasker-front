@@ -19,12 +19,14 @@ export class CabinetComponent implements OnInit, OnDestroy {
     public currentPage = '';
     public user: any;
     subscription: Subscription;
+    subscription_2: Subscription;
+    current: Subscription;
     menu: any = [
         {title: 'HOME', url: '/cabinet/projects/', ico: '<i class="fas fa-home"></i>'},
         {title: 'PROJECTS', url: '/cabinet/projects/', ico: '<i class="fas fa-briefcase"></i>'},
         {title: 'DASHBOARD', url: `/cabinet/dashboard/underfined`, ico: '<i class="fas fa-columns"></i>'},
-        {title: 'USER', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'},
-        {title: 'TITLE5', url: '/cabinet/stats/', ico: '<i class="fas fa-chart-pie"></i>'}
+        {title: 'USER', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'}
+      /*  {title: 'TITLE5', url: '/cabinet/stats/', ico: '<i class="fas fa-chart-pie"></i>'} */
     ];
 
 
@@ -41,10 +43,22 @@ export class CabinetComponent implements OnInit, OnDestroy {
       ) {}
 
     ngOnInit() {
+      this.route.url.subscribe(a => {
+        this.userService.updateCurrentPage('');
+        if (this.route.firstChild) {
+          const current = this.route.firstChild.url.subscribe(url => {
+            // console.log(url[0].path);
+            this.userService.updateCurrentPage(url[0].path);
+          });
+        }
+      });
       this.user = this.route.snapshot.data.user;
-      const subscription = this.userService.userUpdate.subscribe(user => {
+      this.subscription_2 = this.userService.userUpdate.subscribe(user => {
         // console.log(user);
         this.user = user;
+      });
+      this.subscription = this.userService.currentPageUpdate.subscribe(page => {
+        this.currentPage = page;
       });
       this.userService.turnOffLoadingAnimation();
       this.host_name = host;
@@ -60,6 +74,8 @@ export class CabinetComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
       this.subscription.unsubscribe();
+      this.subscription_2.unsubscribe();
+      this.current.unsubscribe();
     }
 
     logOut() {
