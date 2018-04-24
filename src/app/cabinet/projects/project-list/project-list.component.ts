@@ -16,16 +16,26 @@ export class ProjectListComponent implements OnInit {
     id: undefined,
     title: ''
   };
-
+  botState = {
+    angry: false,
+    normal: false,
+    antenns: true,
+    pupil: false,
+    open: false,
+    close: false,
+    loading: true
+  }
+  isLoading: boolean;
   isShowNewprojectForm = false;
 
   constructor(
-    private projectListService: ProjectListService,
+    public projectListService: ProjectListService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.list = this.projectListService.listOfProjects;
+    this.isLoading = this.projectListService.projectLoading;
   }
 
   changeVisibality() {
@@ -38,6 +48,10 @@ export class ProjectListComponent implements OnInit {
   }
 
   goToSelectedDashboard(project) {
+    this.isLoading = !this.isLoading;
+    this.projectListService.projectLoading =
+      !this.projectListService.projectLoading;
+    console.log(this.projectListService.projectLoading);
     this.projectListService.sendCurrentProjectId(project.id);
   }
 

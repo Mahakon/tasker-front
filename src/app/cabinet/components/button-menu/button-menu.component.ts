@@ -24,6 +24,8 @@ export class ButtonMenuComponent implements OnInit {
       this.projectListService.getCurrentProject().subscribe(
         (id) => {
           new Promise((resolve, reject) => {
+            this.projectListService.projectLoading =
+              !this.projectListService.projectLoading;
             this.data.url = `/cabinet/dashboard/${id}`;
             this.currentDashboardService.currentProjectId = id;
             resolve(this.data.url);

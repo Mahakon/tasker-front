@@ -11,6 +11,7 @@ export class ProjectListService {
 
   listOfProjects: Project[];
   currentProject: Project;
+  projectLoading = false;
   private subject = new Subject<any>();
 
   constructor(
