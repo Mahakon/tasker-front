@@ -1,5 +1,12 @@
 <div class="project-container"
      id="{{project.id}}">
+  <div class="project-header" *ngIf="(project.id !== undefined)">
+    <div class="delete-project-view">
+      <button class="delete-project" (click)="onDelete()">
+        <i class="far fa-times-circle"></i>
+      </button>
+    </div>
+  </div>
   <div class="project">
     <div class="project-title" *ngIf="(project.id !== undefined)">
       {{project.title}}

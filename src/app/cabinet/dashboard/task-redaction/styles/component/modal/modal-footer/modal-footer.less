@@ -1,0 +1,37 @@
+@import "../../../config/globals.less";
+
+.modal-footer {
+    padding: 20px;
+}
+
+    .modal-footer_actions-buttons {
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        display: flex;
+    }
+
+        .action-buttons_nessesary {
+            flex-direction: row;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            display: flex;
+        }
+
+
+            .__cancel,
+            .__reset {
+                border: 1px solid @border-color;
+                background: none;
+                color: @c-gray-dark;
+                flex-grow: 0
+            }
+
+            .__ok {
+                background: #2899FF;
+                border: 1px solid @border-color;
+                color: @c-white;
+                flex-grow: 0
+            }
+
+

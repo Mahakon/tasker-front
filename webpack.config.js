@@ -218,7 +218,7 @@ module.exports = {
       "hash": false,
       "inject": true,
       "compile": true,
-      "favicon": false,
+      "favicon": './src/favicon.ico',
       "minify": false,
       "cache": false,
       "showErrors": true,

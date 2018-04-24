@@ -30,6 +30,12 @@ import {TaskService} from './services/cabinet/dashboard/task.service';
 import {CurrentDashboardResolver} from './cabinet/dashboard/current-dashboard/current-dashboard.resolver';
 import {WebSocetService} from './services/cabinet/dashboard/websocet.service';
 import { NgDragDropModule } from 'ng-drag-drop';
+import { TaskRedactionComponent } from './cabinet/dashboard/task-redaction/task-redaction.component';
+import { CommentComponent } from './cabinet/dashboard/comment/comment.component';
+import { EventComponent } from './cabinet/dashboard/current-dashboard/event/event.component';
+import { ShareComponent } from './cabinet/share/share.component';
+import { AnimatedBotComponent } from './animated-bot/animated-bot.component';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +51,12 @@ import { NgDragDropModule } from 'ng-drag-drop';
     CreatingProjectFormComponent,
     CurrentDashboardComponent,
     TaskListComponent,
-    TaskComponent
+    TaskComponent,
+    TaskRedactionComponent,
+    CommentComponent,
+    EventComponent,
+    ShareComponent,
+    AnimatedBotComponent
   ],
   imports: [
     BrowserModule,

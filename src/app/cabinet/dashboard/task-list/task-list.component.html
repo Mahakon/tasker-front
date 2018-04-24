@@ -5,7 +5,10 @@
     </div>
   </div>
   <div class="task-list-container" droppable="true" (onDrop)="changeTaskStatus($event)">
-    <app-task *ngFor="let task of taskList" [task]="task"></app-task>
+    <app-task *ngFor="let task of taskList"
+              [task]="task"
+              (edit)="onEditTask($event)">
+    </app-task>
     <app-task [isEdit]="isAdd"
               *ngIf="isAdd"
               [task]="{

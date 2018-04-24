@@ -1,14 +1,16 @@
 <div id="main" style="min-height: 100vh;">
     <div class="cabinet">
         <div class="header">
-            <div class="logo" routerLink="/cabinet/" routerLinkActive="active">
+            <div class="logo" routerLink="/cabinet/projects" routerLinkActive="active">
                     <i class="fab fa-buromobelexperte"></i>
             </div>
-            <div class="header__title"><h2>My Bot-Tasker</h2></div>
-            <div class="header__user-cabinet">
+            <div class="header__title"><h2>My Bot-Tasker {{ currentPage ? '|' : ''}} {{currentPage}}</h2></div>
+            <div class="header__user-cabinet" routerLink="/cabinet/user/" routerLinkActive="active">
 
-                <div class="user-cabinet__avatar">
-                  <i *ngIf = "!user.avatar" class="fas fa-user-circle"></i>
+                <div class="user-cabinet__avatar" >
+                  <span *ngIf = "!user.avatar">
+                    <i class="fas fa-user-circle"></i>
+                  </span>
                   <img *ngIf = "user.avatar" id="avatar" [src] = "host_name + '../' + user.avatar"/>
                 </div>
                 <div class="user-cabinet__name">{{user.login}}</div>
@@ -21,7 +23,7 @@
             </div>
         </div>
         <div class="content">
-            <div class="menu" [class.active]="open_menu">
+            <div class="menu" [class.active]="open_menu" (click)="hide_menu()">
                 <app-button-menu-component [ngClass]="'menu-button'" [data] = "button" *ngFor="let button of menu"></app-button-menu-component>
             </div>
             <div class="work-area">

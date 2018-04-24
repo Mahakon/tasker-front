@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { host } from '../../../config';
 import { Observable } from 'rxjs/Observable';
 import {Project} from '../projects/project.service';
+import {Subject} from 'rxjs/Subject';
 
 export interface UserData {
   login: string;
@@ -15,14 +16,25 @@ export interface UserData {
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) { }
-  userId: number;
+  constructor(private http: HttpClient,
+              ) { }
+  public userId: number;
+  public userUpdate = new Subject();
+  public currentPageUpdate = new Subject<string>();
+
 
   getUserData(id: number): Observable<UserData> {
     const url = host + `user/data?id=${id}`;
     return this.http.get<UserData>(url);
   }
-
+  updateUserData() {
+    this.getUserData(this.userId).subscribe(user => {
+      this.userUpdate.next(user);
+    });
+  }
+  updateCurrentPage(page) {
+    this.currentPageUpdate.next(page);
+  }
   turnOffLoadingAnimation() {
     document.getElementById('loaderBot').style.display = 'none';
   }

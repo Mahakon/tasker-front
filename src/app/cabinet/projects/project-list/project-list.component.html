@@ -1,9 +1,14 @@
 <div class="main-list-wrapper" *ngIf="!isShowNewprojectForm">
   <h1>Your Projects</h1>
-  <div class="list-container">
+  <app-animated-bot class="__location-bot"
+                    [state]="botState"
+                    *ngIf="isLoading">
+  </app-animated-bot>
+  <div *ngIf="!isLoading" class="list-container">
     <app-project *ngFor="let project of list"
                  [project]="project"
-                 (click)="goToSelectedDashboard(project)">
+                 (dblclick)="goToSelectedDashboard(project)"
+                 (delete)="deleteProject($event)">
     </app-project>
     <app-project (click)="changeVisibality()" [project]="defaultProject"></app-project>
   </div>

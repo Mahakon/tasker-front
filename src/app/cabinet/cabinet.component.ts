@@ -1,33 +1,39 @@
-import { Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignInService } from '../services/sign/sign-in.service';
 import { UserData, UserService } from '../services/cabinet/user/user.service';
 import { host } from '../config';
 import {ProjectListService} from '../services/cabinet/projects/project-list.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-cabinet',
     templateUrl: './cabinet.component.html',
     styleUrls: ['./cabinet.component.less']
 })
-export class CabinetComponent implements OnInit {
-    private id: number;
-    private host_name: string;
-    private open_menu = false;
-    private exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
+export class CabinetComponent implements OnInit, OnDestroy {
+    public id: number;
+    public host_name: string;
+    public open_menu = false;
+    public exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
+    public currentPage = '';
+    public user: any;
+    subscription: Subscription;
+    subscription_2: Subscription;
     menu: any = [
-        {title: 'HOME', url: '/cabinet/home/', ico: '<i class="fas fa-home"></i>'},
+        {title: 'HOME', url: '/cabinet/projects/', ico: '<i class="fas fa-home"></i>'},
         {title: 'PROJECTS', url: '/cabinet/projects/', ico: '<i class="fas fa-briefcase"></i>'},
         {title: 'DASHBOARD', url: `/cabinet/dashboard/underfined`, ico: '<i class="fas fa-columns"></i>'},
-        {title: 'USER', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'},
-        {title: 'TITLE5', url: '/cabinet/stats/', ico: '<i class="fas fa-chart-pie"></i>'}
+        {title: 'USER', url: '/cabinet/user/', ico: '<i class="fas fa-user"></i>'}
+      /*  {title: 'TITLE5', url: '/cabinet/stats/', ico: '<i class="fas fa-chart-pie"></i>'} */
     ];
 
-  get user(): UserData {
-    // console.log('user', this.route.snapshot.data.user);
-    return this.route.snapshot.data.user;
-  }
 
+  /*
+  get user(): UserData {
+    return this.userData;
+  }
+  */
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -36,16 +42,35 @@ export class CabinetComponent implements OnInit {
       ) {}
 
     ngOnInit() {
-    this.userService.turnOffLoadingAnimation();
-    this.host_name = host;
-    this.projectListService.listOfProjects = this.user.projects;
+      this.route.url.subscribe(a => {
+        this.userService.updateCurrentPage('');
+        if (this.route.firstChild) {
+          const current = this.route.firstChild.url.subscribe(url => {
+            // console.log(url[0].path);
+            this.userService.updateCurrentPage(url[0].path);
+          });
+        }
+      });
+      this.user = this.route.snapshot.data.user;
+      this.subscription_2 = this.userService.userUpdate.subscribe(user => {
+        // console.log(user);
+        this.user = user;
+      });
+      this.subscription = this.userService.currentPageUpdate.subscribe(page => {
+        this.currentPage = page;
+      });
+      this.userService.turnOffLoadingAnimation();
+      this.host_name = host;
+      this.projectListService.listOfProjects = this.user.projects;
     }
 
     goToSignIn() {
-        this.router.navigate(
-          ['/auth/sign-in'],
-          { relativeTo: this.route }
-        );
+      return this.router.navigateByUrl('/auth/sign-in');
+    }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
+      this.subscription_2.unsubscribe();
     }
 
     logOut() {
@@ -54,7 +79,11 @@ export class CabinetComponent implements OnInit {
           value => {
             console.log(value);
             this.userService.userId = undefined;
-            this.goToSignIn();
+            this.goToSignIn()
+              .then(
+                suc => console.log(suc),
+                err => console.log(err)
+              );
           },
           err => console.log(err)
         );
@@ -62,6 +91,8 @@ export class CabinetComponent implements OnInit {
 
     click_on_menu() {
         this.open_menu = !this.open_menu;
-        console.log('click');
+    }
+    hide_menu() {
+      this.open_menu = false;
     }
 }

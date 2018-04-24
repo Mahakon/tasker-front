@@ -13,6 +13,11 @@ import {ProjectListComponent} from './cabinet/projects/project-list/project-list
 import {CurrentDashboardComponent} from './cabinet/dashboard/current-dashboard/current-dashboard.component';
 import {CurrentDashboardGuard} from './cabinet/dashboard/current-dashboard/current-dashboard.guard';
 import {CurrentDashboardResolver} from './cabinet/dashboard/current-dashboard/current-dashboard.resolver';
+import {ShareComponent} from './cabinet/share/share.component';
+import {ShareGuard} from './cabinet/share/share.guard';
+import {HttpModule} from '@angular/http';
+
+
 
 const routes: Routes = [
   {
@@ -23,6 +28,10 @@ const routes: Routes = [
       { path: 'sign-up', component: UpComponent, canActivate: [UpGuard] },
       { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
     ]
+  },
+  {
+    path: 'share/:code',
+    component: ShareComponent
   },
   {
     path: 'cabinet',
@@ -38,7 +47,7 @@ const routes: Routes = [
         canActivate: [CurrentDashboardGuard],
         resolve: { tasks: CurrentDashboardResolver }
       },
-      { path: '', redirectTo: 'dashboard/11', pathMatch: 'full' }
+      { path: '', redirectTo: 'projects', pathMatch: 'full' }
     ]
   },
   { path: '', redirectTo: 'auth', pathMatch: 'full' }
@@ -48,6 +57,6 @@ const routes: Routes = [
   exports:  [
     RouterModule
   ],
-  imports: [ RouterModule.forRoot(routes) ]
+  imports: [ RouterModule.forRoot(routes, {enableTracing: true}), HttpModule ]
 })
 export class AppRoutingModule { }

@@ -1,0 +1,85 @@
+<div class="main-wrapper">
+  <div class="modal-content">
+    <div class="modal-header">
+
+      <div *ngIf="formVisibality" class="modal-header_close-w">
+        <div class="modal-header_close_icon"></div>
+        <button (click)="onClose()" class="modal-header_close"></button>
+      </div>
+      <div class="modal-header_title">
+        <div class="modal-header_title-text">
+          Task Redaction {{task.discription}}
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="change-status-view" *ngIf="formVisibality">
+        <div class="change-status-title">Status:</div>
+        <div class="change-status">
+          <select class="change-status-selector"
+                  [(ngModel)]="selectedStatus">
+            <option value="todo">
+              todo
+            </option>
+            <option value="process">
+              process
+            </option>
+            <option value="done">
+              done
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="chat-wrapper" *ngIf="formVisibality">
+        <div class="chat-container">
+          <app-comment *ngFor="let comment of commentList"
+                       [comment]="comment"
+                       [curUserId]="curUserId">
+          </app-comment>
+        </div>
+        <div class="add-comment-view">
+          <div class="add-comment-container">
+            <textarea class="add-comment-field"
+                      (keyup.enter)="sendNewComment()"
+                      [(ngModel)]="inputMessage">
+            </textarea>
+          </div>
+          <div class="add-button-view">
+            <button class="action-button add-comment"
+                    (click)="sendNewComment()">ADD
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!formVisibality" class="animated-bot __location __moving-antenns __loading">
+        <div class="bot-head">
+          <div class="bot-eye"></div>
+          <div class="bot-mouth"></div>
+          <div class="bot-left-ear">
+            <div class="antenna-left"></div>
+          </div>
+          <div class="bot-right-ear">
+            <div class="antenna-right"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="modal-footer_actions-buttons">
+        <div *ngIf="formVisibality" class="action-buttons_nessesary">
+          <div class="action-button-w">
+            <button (click)="onClose()" class="action-button __cancel">Cancel</button>
+          </div>
+          <div class="action-button-w">
+            <button class="action-button __ok" (click)="onUpdate()">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
