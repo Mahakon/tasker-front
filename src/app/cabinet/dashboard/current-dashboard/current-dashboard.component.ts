@@ -132,6 +132,7 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
     this.subscriptionToChangeEvents = this.currentDashboardService.getSubscriptionToEvent(DashboardEvents.EVENTS)
       .subscribe(
         task => {
+          // console.log('test', task);
           this.addEvent(task);
         }
       );

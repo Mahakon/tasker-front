@@ -20,7 +20,6 @@ export class EventComponent implements OnInit {
   ngOnInit() {
     console.log('EventComponent', this.event);
     if (this.event.task) {
-
       this.login = this.event.task.userData[0];
       this.task = this.event.task.discription;
       this.board = this.event.task.status;
@@ -51,6 +50,12 @@ export class EventComponent implements OnInit {
           break;
         case 'CHANGE_STATUS':
           a = 'переместил';
+          break;
+                  case 'CHANGE_STATUS':
+          a = 'переместил';
+          break;
+        case 'ADD_COMMENT':
+          a = 'добавил комментарий';
           break;
         default:
           a = 'неизвестное действие';
