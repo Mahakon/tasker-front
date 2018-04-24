@@ -12,15 +12,14 @@ import { Subscription } from 'rxjs/Subscription';
     styleUrls: ['./cabinet.component.less']
 })
 export class CabinetComponent implements OnInit, OnDestroy {
-    private id: number;
-    private host_name: string;
-    private open_menu = false;
-    private exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
+    public id: number;
+    public host_name: string;
+    public open_menu = false;
+    public exit: any = {title: 'Выход', url: '/exit/', ico: '<i class="fas fa-sign-out-alt"></i>'};
     public currentPage = '';
     public user: any;
     subscription: Subscription;
     subscription_2: Subscription;
-    current: Subscription;
     menu: any = [
         {title: 'HOME', url: '/cabinet/projects/', ico: '<i class="fas fa-home"></i>'},
         {title: 'PROJECTS', url: '/cabinet/projects/', ico: '<i class="fas fa-briefcase"></i>'},
@@ -66,16 +65,12 @@ export class CabinetComponent implements OnInit, OnDestroy {
     }
 
     goToSignIn() {
-        this.router.navigate(
-          ['/auth/sign-in'],
-          { relativeTo: this.route }
-        );
+      return this.router.navigateByUrl('/auth/sign-in');
     }
 
     ngOnDestroy() {
       this.subscription.unsubscribe();
       this.subscription_2.unsubscribe();
-      this.current.unsubscribe();
     }
 
     logOut() {
@@ -84,7 +79,11 @@ export class CabinetComponent implements OnInit, OnDestroy {
           value => {
             console.log(value);
             this.userService.userId = undefined;
-            this.goToSignIn();
+            this.goToSignIn()
+              .then(
+                suc => console.log(suc),
+                err => console.log(err)
+              );
           },
           err => console.log(err)
         );

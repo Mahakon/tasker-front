@@ -1,7 +1,7 @@
-export const host = 'http://127.0.0.1:3000/api/';
-export const wsshost = 'ws://127.0.0.1:3000';
-export const static_host = 'http://127.0.0.1:3000/';
-export const mode = 'test';
+export const host = 'https://dcb9a9bb.ngrok.io/api/';
+export const wsshost = 'wss://dcb9a9bb.ngrok.io';
+export const static_host = 'https://dcb9a9bb.ngrok.io/';
+export const mode = 'production';
 export const login = 'login1';
 export const password = 'login1';
 
