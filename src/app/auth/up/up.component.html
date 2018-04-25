@@ -48,7 +48,7 @@
         Пароль не может быть пустой
       </div>
       <div *ngIf="form.get('password').errors.minlength">
-        Новый пароль должен быть не короче 6ти символов
+        Пароль должен быть не короче 6ти символов
       </div>
     </div>
 
@@ -63,7 +63,7 @@
         Пароль не может быть пустой
       </div>
       <div *ngIf="form.get('confirmPassword').errors.minlength">
-        Новый пароль должен быть не короче 6ти символов
+        Пароль должен быть не короче 6ти символов
       </div>
       <div *ngIf="form.get('confirmPassword').errors.equally">
         {{ form.get('confirmPassword').errors.equally }}
