@@ -1,7 +1,8 @@
 <div class="comment"
-     [class.__another-user-comment]="comment.id !== curUserId">
-  <div class="user-icon">
-    <i class="fas fa-user"></i>
+     [class.__another-user-comment]="comment.user_id !== curUserId">
+  <div class="user-icon" [title]="comment.event.userData[1] + ' ' + comment.event.userData[2] + ' ' + comment.event.userData[0]">
+    <i *ngIf = "!comment.event.userData[3]" class="fas fa-user"></i>
+    <div class="avatar" *ngIf = "comment.event.userData[3]" [ngStyle]="{'background-image' : 'url(' + static_host + comment.event.userData[3] + ')'}"></div>
   </div>
   <div class="comment-content">
     {{comment.content}}
