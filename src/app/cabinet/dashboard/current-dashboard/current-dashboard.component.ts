@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ISubscription} from 'rxjs/Subscription';
 import {UserService} from '../../../services/cabinet/user/user.service';
 import {static_host} from '../../../config';
+import Clipboard from 'clipboard-polyfill';
 
 @Component({
   selector: 'app-current-dashboard',
@@ -181,7 +182,10 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
 
   /* Копируем ссылку */
   copyShareLink() {
-
+    const url = document.getElementById('input');
+    if (url.value) {
+      Clipboard.writeText(url.value);
+    }
   }
   addEvent(task) {
     this.currentDashboardService.eventsData.push({task: task});
