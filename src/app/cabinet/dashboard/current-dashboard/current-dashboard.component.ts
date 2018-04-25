@@ -143,7 +143,7 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    this.currentDashboardService.eventsData = [];
     this.subscriptionToAddTask.unsubscribe();
     this.subscriptionToDeleteTask.unsubscribe();
     this.subscriptionToChangeTaskDiscription.unsubscribe();
