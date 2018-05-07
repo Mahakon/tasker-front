@@ -14,7 +14,7 @@ import Clipboard from 'clipboard-polyfill';
 })
 
 export class CurrentDashboardComponent implements OnInit, OnDestroy {
-  private view = {
+  public view = {
     showUrl: false,
     baseShareUrl: `${location.origin}`,
     shareUrl: '',
@@ -182,7 +182,7 @@ export class CurrentDashboardComponent implements OnInit, OnDestroy {
 
   /* Копируем ссылку */
   copyShareLink() {
-    const url = document.getElementById('input');
+    const url = <HTMLInputElement> document.getElementById('input');
     if (url.value) {
       Clipboard.writeText(url.value);
     }
